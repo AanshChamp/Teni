@@ -339,6 +339,28 @@ class ExecutionEngine:
             elif action == "github_me":
                 return self.awareness.github_user_info()
             
+            elif action == "screen_process":
+                try:
+                    from actions.vision import screen_process
+                    text = params.get("text", "What's on my screen?")
+                    angle = params.get("angle", "screen")
+                    result_msg = screen_process({"text": text, "angle": angle})
+                    return {"success": True, "message": result_msg}
+                except Exception as e:
+                    return {"success": False, "error": f"Vision error: {str(e)}"}
+            
+            elif action == "save_memory":
+                try:
+                    from memory.long_term import update_memory
+                    cat = params.get("category", "notes")
+                    key = params.get("key", "")
+                    val = params.get("value", "")
+                    if key and val:
+                        update_memory({cat: {key: {"value": val}}})
+                    return {"success": True, "message": "Memory saved."}
+                except Exception as e:
+                    return {"success": False, "error": str(e)}
+            
             else:
                 return {"success": False, "error": f"Unknown action: {action}"}
         

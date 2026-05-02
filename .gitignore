@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.env
+
+# macOS
+.DS_Store
+
+# Teni
+state.json
+voice_profile.npy
+memory/long_term.json
+memory/memory.json
+logs/*.log
+cloud_sync/*.json
+
+# Reference (not part of the project)
+_reference/
+
+# IDE
+.vscode/
+.idea/
