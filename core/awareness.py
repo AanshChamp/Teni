@@ -6,6 +6,7 @@ Uses AppleScript for native app control, Keychain access, and page interaction.
 import subprocess
 import json
 import time
+import os
 from typing import Dict, Any, Optional, List
 
 

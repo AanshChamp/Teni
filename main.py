@@ -51,6 +51,15 @@ class TeniSystem:
         os._exit(0)
 
     def run(self):
+        # 1. Validation
+        from config import Config
+        if not Config.GEMINI_API_KEY:
+            print("\n❌ ERROR: GEMINI_API_KEY not found!")
+            print("Please create a '.env' file in the project root and add:")
+            print("GEMINI_API_KEY=your_key_here")
+            print("\nRefer to .env.template for guidance.")
+            os._exit(1)
+
         print("🚀 T.E.N.I Booting...")
         
         # Start Background Intelligence
