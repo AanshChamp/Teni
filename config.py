@@ -5,14 +5,14 @@ load_dotenv()
 
 class Config:
     # ── NVIDIA (Legacy LLM) ──
-    NVIDIA_API_KEY = "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"
+    NVIDIA_API_KEY = os.getenv("NVIDIA_API_KEY", "")
     LLM_ENDPOINT = "https://integrate.api.nvidia.com/v1/chat/completions"
     MODEL = "mistralai/mistral-large-3-675b-instruct-2512"
     TEMPERATURE = 0.2
     MAX_TOKENS = 1024
 
     # ── Gemini Live Audio ──
-    GEMINI_API_KEY = "AIzaSyCYGrHU-wxqXFej7pcBOgcNSgQIeGt1-eg"
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
     GEMINI_LIVE_MODEL = "models/gemini-2.5-flash-native-audio-preview-12-2025"
     GEMINI_VOICE = "Charon"
     SEND_SAMPLE_RATE = 16000

@@ -1,11 +1,11 @@
 import threading
 import time
+import os
 from typing import Dict, Any, Optional
 from core.awareness import SystemAwareness
 from memory.memory import Memory
 from memory.patterns import PatternLearner
 from cloud.sync import CloudSync
-from memory.patterns import PatternLearner
 
 class CognitiveLoop(threading.Thread):
     """
@@ -30,8 +30,6 @@ class CognitiveLoop(threading.Thread):
         self.cloud_sync = CloudSync()
         self.total_uptime = 0
         self.was_locked = False
-        self.patterns = PatternLearner()
-        self._presence_timer = 0
         
     def run(self):
         print("[CognitiveLoop] 🧠 Loop active")
