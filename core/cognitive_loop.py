@@ -65,6 +65,10 @@ class CognitiveLoop(threading.Thread):
             self.last_app = current_app
             self.idle_start = time.time()
             
+            # Pattern Detection: If they open Safari then Notes, suggest Study Mode
+            if self._detect_workflow(["Safari", "Notes"]):
+                if self.ui: self.ui._win.hud.has_notification = True
+            
         if current_window != self.last_window:
             self._handle_window_change(current_window, ctx)
             self.last_window = current_window
@@ -101,4 +105,12 @@ class CognitiveLoop(threading.Thread):
         """Triggered when user returns after a long break."""
         if self.ui:
             self.ui.write_log("SYS: Welcome back, sir.")
-            # We could trigger a proactive greeting here via PersonalityEngine
+
+    def _detect_workflow(self, target_sequence):
+        """Checks if the last few app switches match a known workflow."""
+        recent = self.patterns.data["workflow_sequences"][-5:]
+        seq = [s["to"] for s in recent]
+        for i in range(len(seq) - len(target_sequence) + 1):
+            if seq[i:i+len(target_sequence)] == target_sequence:
+                return True
+        return False
