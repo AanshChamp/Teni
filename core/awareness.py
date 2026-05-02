@@ -24,6 +24,34 @@ class SystemAwareness:
             "screen_size": self.get_screen_size(),
         }
 
+    def get_deep_context(self) -> Dict[str, Any]:
+        """Extended snapshot of system state."""
+        ctx = self.get_context()
+        ctx.update({
+            "battery": self.get_battery(),
+            "time": time.strftime("%H:%M"),
+            "desktop_analysis": self.get_desktop_analysis(),
+        })
+        return ctx
+
+    def get_battery(self) -> str:
+        try:
+            r = subprocess.run(["pmset", "-g", "batt"], capture_output=True, text=True)
+            return r.stdout.split("\n")[1].split(";")[0].split("\t")[1].strip()
+        except: return "N/A"
+
+    def get_desktop_analysis(self) -> Dict[str, Any]:
+        """Scan desktop for file count and types."""
+        desktop = os.path.expanduser("~/Desktop")
+        try:
+            files = os.listdir(desktop)
+            return {
+                "file_count": len(files),
+                "clutter_score": min(100, len(files) * 5),
+                "types": list(set([os.path.splitext(f)[1] for f in files if "." in f]))
+            }
+        except: return {}
+
     def get_frontmost_app(self) -> str:
         return self._run_osascript(
             'tell application "System Events" to return name of first process whose frontmost is true'

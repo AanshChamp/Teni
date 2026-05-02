@@ -1,475 +1,376 @@
-"""
-Teni HUD — Premium Jarvis-style interface.
-Full-screen HUD with spinning rings, status indicators, mute button,
-typewriter log, and text input. Toggleable to compact mode with Cmd+M.
-Adapted from Mark-XXXV's ui.py for macOS + Teni branding.
-"""
-
-import os
-import sys
-import time
+from __future__ import annotations
+import json
 import math
+import os
+import platform
 import random
+import subprocess
+import sys
 import threading
-import tkinter as tk
-from collections import deque
+import time
 from pathlib import Path
+import psutil
 
-try:
-    from PIL import Image, ImageTk, ImageDraw
-    _PIL_OK = True
-except ImportError:
-    _PIL_OK = False
+from PyQt6.QtCore import (
+    QEasingCurve, QMimeData, QObject, QPointF, QRectF, QSize, Qt,
+    QTimer, QUrl, pyqtSignal,
+)
+from PyQt6.QtGui import (
+    QBrush, QColor, QDragEnterEvent, QDropEvent, QFont, QFontDatabase,
+    QKeySequence, QLinearGradient, QPainter, QPainterPath, QPen, QPixmap,
+    QRadialGradient, QShortcut,
+)
+from PyQt6.QtWidgets import (
+    QApplication, QFileDialog, QFrame, QHBoxLayout, QLabel, QLineEdit,
+    QMainWindow, QPushButton, QScrollArea, QSizePolicy, QTextEdit,
+    QVBoxLayout, QWidget, QProgressBar,
+)
 
-SYSTEM_NAME = "T.E.N.I"
-SYSTEM_FULL = "Teni Enhanced Neural Intelligence"
-MODEL_BADGE = "JARVIS EDITION"
+# --- Configuration & Styling ---
 
-# Colors
-C_BG     = "#000000"
-C_PRI    = "#00d4ff"
-C_MID    = "#007a99"
-C_DIM    = "#003344"
-C_DIMMER = "#001520"
-C_ACC    = "#ff6600"
-C_ACC2   = "#ffcc00"
-C_TEXT   = "#8ffcff"
-C_PANEL  = "#010c10"
-C_GREEN  = "#00ff88"
-C_RED    = "#ff3333"
-C_MUTED  = "#ff3366"
+_OS = platform.system()
+_DEFAULT_W, _DEFAULT_H = 980, 700
+_MIN_W,     _MIN_H     = 820, 580
+_LEFT_W  = 160
+_RIGHT_W = 340
 
+class C:
+    """Teni Design System Colors"""
+    BG        = "#00060a"
+    PANEL     = "#010d14"
+    PANEL2    = "#010f18"
+    BORDER    = "#0d3347"
+    BORDER_B  = "#1a5c7a"
+    BORDER_A  = "#0f4060"
+    PRI       = "#00d4ff" # Teni Cyan
+    PRI_DIM   = "#007a99"
+    PRI_GHO   = "#001f2e"
+    ACC       = "#ff6b00" # Warning/Proactive Orange
+    ACC2      = "#ffcc00" # Thinking Yellow
+    GREEN     = "#00ff88" # Success/Listening Green
+    GREEN_D   = "#00aa55"
+    RED       = "#ff3355" # Error/Muted Red
+    MUTED_C   = "#ff3366"
+    TEXT      = "#8ffcff"
+    TEXT_DIM  = "#3a8a9a"
+    TEXT_MED  = "#5ab8cc"
+    WHITE     = "#d8f8ff"
+    DARK      = "#000d14"
+    BAR_BG    = "#011520"
 
-class TeniHUD:
-    """Premium Jarvis HUD for Teni AI."""
+def qcol(h: str, a: int = 255) -> QColor:
+    c = QColor(h); c.setAlpha(a); return c
 
+class SysMetrics:
+    """Real-time system monitoring for the left panel."""
     def __init__(self):
-        self.root = tk.Tk()
-        self.root.title("T.E.N.I — Jarvis Edition")
-        self.root.resizable(False, False)
+        self.cpu = 0.0
+        self.mem = 0.0
+        self.net = 0.0
+        self.gpu = -1.0
+        self.tmp = -1.0
+        self._lock = threading.Lock()
+        self._last_net = psutil.net_io_counters()
+        self._last_net_t = time.time()
+        self._running = True
+        threading.Thread(target=self._loop, daemon=True).start()
 
-        sw = self.root.winfo_screenwidth()
-        sh = self.root.winfo_screenheight()
-        self.W = min(sw, 984)
-        self.H = min(sh, 816)
-        self.root.geometry(f"{self.W}x{self.H}+{(sw - self.W) // 2}+{(sh - self.H) // 2}")
-        self.root.configure(bg=C_BG)
+    def _loop(self):
+        while self._running:
+            try:
+                cpu = psutil.cpu_percent(interval=None)
+                mem = psutil.virtual_memory().percent
+                nc = psutil.net_io_counters()
+                now = time.time()
+                dt = now - self._last_net_t
+                net = ((nc.bytes_sent - self._last_net.bytes_sent) + (nc.bytes_recv - self._last_net.bytes_recv)) / dt / (1024*1024) if dt > 0 else 0.0
+                self._last_net, self._last_net_t = nc, now
+                
+                # Simple macOS temp/gpu fallback (Teni is macOS native)
+                tmp = -1.0
+                if _OS == "Darwin":
+                    try:
+                        # Heuristic for Apple Silicon
+                        res = subprocess.run(["sysctl", "machdep.cpu.brand_string"], capture_output=True, text=True)
+                        if "Apple" in res.stdout:
+                            # Powermetrics is best but requires sudo. We'll use a placeholder or simpler check.
+                            pass
+                    except: pass
 
-        self.FACE_SZ = min(int(self.H * 0.50), 380)
-        self.FCX = self.W // 2
-        self.FCY = int(self.H * 0.13) + self.FACE_SZ // 2
+                with self._lock:
+                    self.cpu, self.mem, self.net, self.tmp = cpu, mem, net, tmp
+            except: pass
+            time.sleep(2)
 
-        # State
-        self.speaking = False
+    def snapshot(self):
+        with self._lock:
+            return {"cpu": self.cpu, "mem": self.mem, "net": self.net, "gpu": self.gpu, "tmp": self.tmp}
+
+_metrics = SysMetrics()
+
+class HudCanvas(QWidget):
+    """The central animated core of Teni."""
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setAttribute(Qt.WidgetAttribute.WA_OpaquePaintEvent)
+        self.setMinimumSize(300, 300)
         self.muted = False
-        self.scale = 1.0
-        self.target_scale = 1.0
-        self.halo_a = 60.0
-        self.target_halo = 60.0
-        self.last_t = time.time()
-        self.tick = 0
-        self.scan_angle = 0.0
-        self.scan2_angle = 180.0
-        self.rings_spin = [0.0, 120.0, 240.0]
-        self.pulse_r = [0.0, self.FACE_SZ * 0.26, self.FACE_SZ * 0.52]
-        self.status_text = "INITIALISING"
-        self.status_blink = True
-        self._jarvis_state = "INITIALISING"
-        self.typing_queue = deque()
-        self.is_typing = False
+        self.speaking = False
+        self.state = "IDLE" # IDLE, THINKING, LISTENING, WATCHFUL, DORMANT
+        self.has_notification = False
+        
+        self._tick = 0
+        self._scale = 1.0
+        self._tgt_scale = 1.0
+        self._halo = 55.0
+        self._tgt_halo = 55.0
+        self._last_t = time.time()
+        self._rings = [0.0, 120.0, 240.0]
+        self._pulses = [0.0, 50.0, 100.0]
+        self._scan = 0.0
+        
+        self._tmr = QTimer(self)
+        self._tmr.timeout.connect(self._step)
+        self._tmr.start(16)
+
+    def _step(self):
+        self._tick += 1
+        now = time.time()
+        
+        # Adjust dynamics based on state
+        if now - self._last_t > (0.12 if self.speaking else 0.5):
+            if self.speaking:
+                self._tgt_scale, self._tgt_halo = random.uniform(1.05, 1.12), random.uniform(140, 180)
+            elif self.state == "WATCHFUL":
+                self._tgt_scale, self._tgt_halo = random.uniform(0.99, 1.01), random.uniform(20, 40)
+            elif self.muted:
+                self._tgt_scale, self._tgt_halo = 1.0, 15
+            else:
+                self._tgt_scale, self._tgt_halo = random.uniform(1.0, 1.02), random.uniform(45, 65)
+            self._last_t = now
+
+        sp = 0.3 if self.speaking else 0.1
+        self._scale += (self._tgt_scale - self._scale) * sp
+        self._halo  += (self._tgt_halo  - self._halo)  * sp
+
+        rot_speed = [1.2, -0.8, 1.8] if self.speaking else [0.4, -0.2, 0.6]
+        for i, s in enumerate(rot_speed):
+            self._rings[i] = (self._rings[i] + s) % 360
+        self._scan = (self._scan + (2.5 if self.speaking else 1.0)) % 360
+
+        self.update()
+
+    def paintEvent(self, _):
+        p = QPainter(self)
+        p.setRenderHint(QPainter.RenderHint.Antialiasing)
+        p.fillRect(self.rect(), qcol(C.BG))
+        
+        W, H = self.width(), self.height()
+        cx, cy = W/2, H/2
+        fw = min(W, H)
+        
+        # Halo
+        col = qcol(C.MUTED_C if self.muted else (C.ACC2 if self.state == "THINKING" else C.PRI))
+        for i in range(8):
+            r = fw * 0.3 * (1.5 - i*0.1)
+            a = max(0, int(self._halo * 0.1 * (1 - i/8)))
+            p.setPen(QPen(qcol(col.name(), a), 1.5))
+            p.drawEllipse(QRectF(cx-r, cy-r, r*2, r*2))
+
+        # Rings
+        for i, r_frac in enumerate([0.45, 0.38, 0.3]):
+            r = fw * r_frac
+            p.setPen(QPen(qcol(col.name(), 180 - i*40), 2 - i*0.5))
+            p.drawArc(QRectF(cx-r, cy-r, r*2, r*2), int(self._rings[i]*16), 120*16)
+            
+        # Teni Core Label
+        p.setPen(QPen(qcol(C.PRI, 200)))
+        p.setFont(QFont("Courier New", 12, QFont.Weight.Bold))
+        p.drawText(self.rect(), Qt.AlignmentFlag.AlignCenter, "T.E.N.I")
+        
+        # Notification Badge
+        if self.has_notification:
+            p.setBrush(QBrush(qcol(C.ACC)))
+            p.setPen(Qt.PenStyle.NoPen)
+            p.drawEllipse(QPointF(W-20, 20), 5, 5)
+
+class MetricBar(QWidget):
+    def __init__(self, label, color=C.PRI, parent=None):
+        super().__init__(parent)
+        self._label, self._color, self._value, self._text = label, color, 0.0, "--"
+        self.setFixedHeight(35)
+    def set_value(self, v, t):
+        self._value, self._text = v, t
+        self.update()
+    def paintEvent(self, _):
+        p = QPainter(self)
+        p.setRenderHint(QPainter.RenderHint.Antialiasing)
+        W, H = self.width(), self.height()
+        p.setBrush(QBrush(qcol(C.PANEL2))); p.setPen(QPen(qcol(C.BORDER_A), 1))
+        p.drawRoundedRect(QRectF(1, 1, W-2, H-2), 4, 4)
+        p.setFont(QFont("Courier New", 8)); p.setPen(QPen(qcol(C.TEXT_DIM)))
+        p.drawText(QRectF(5, 5, 50, 15), Qt.AlignmentFlag.AlignLeft, self._label)
+        p.setPen(QPen(qcol(self._color))); p.drawText(QRectF(W-65, 5, 60, 15), Qt.AlignmentFlag.AlignRight, self._text)
+        # Bar
+        p.setBrush(QBrush(qcol(C.BAR_BG)))
+        p.drawRect(QRectF(5, 25, W-10, 4))
+        p.setBrush(QBrush(qcol(self._color)))
+        p.drawRect(QRectF(5, 25, (W-10)*self._value/100, 4))
+
+class LogWidget(QTextEdit):
+    _sig = pyqtSignal(str)
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setReadOnly(True)
+        self.setFont(QFont("Courier New", 9))
+        self.setStyleSheet(f"background: {C.PANEL}; color: {C.TEXT}; border: 1px solid {C.BORDER}; padding: 5px;")
+        self._sig.connect(self._append)
+    def _append(self, txt):
+        self.append(txt)
+        self.ensureCursorVisible()
+    def append_log(self, txt):
+        self._sig.emit(txt)
+
+class FileDropZone(QWidget):
+    file_selected = pyqtSignal(str)
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setAcceptDrops(True)
+        self.setFixedHeight(80)
+        self.current_file = None
+    def dragEnterEvent(self, e):
+        if e.mimeData().hasUrls(): e.acceptProposedAction()
+    def dropEvent(self, e):
+        urls = e.mimeData().urls()
+        if urls:
+            path = urls[0].toLocalFile()
+            self.current_file = path
+            self.file_selected.emit(path)
+    def paintEvent(self, _):
+        p = QPainter(self)
+        p.setRenderHint(QPainter.RenderHint.Antialiasing)
+        p.setBrush(QBrush(qcol(C.PANEL2))); p.setPen(QPen(qcol(C.BORDER), 1, Qt.PenStyle.DashLine))
+        p.drawRoundedRect(QRectF(2, 2, self.width()-4, self.height()-4), 5, 5)
+        p.setPen(QPen(qcol(C.PRI_DIM)))
+        txt = os.path.basename(self.current_file) if self.current_file else "Drop File Here"
+        p.drawText(self.rect(), Qt.AlignmentFlag.AlignCenter, txt)
+
+class MainWindow(QMainWindow):
+    _state_sig = pyqtSignal(str)
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("T.E.N.I — JARVIS EDITION")
+        self.setMinimumSize(_MIN_W, _MIN_H)
+        self.resize(_DEFAULT_W, _DEFAULT_H)
+        self.setStyleSheet(f"background: {C.BG};")
         self.on_text_command = None
-        self._compact_mode = False
+        self._is_compact = False
+        
+        # Main Container
+        self.root = QWidget()
+        self.setCentralWidget(self.root)
+        self.layout = QHBoxLayout(self.root)
+        self.layout.setContentsMargins(10, 10, 10, 10)
+        
+        # Left Panel (Metrics)
+        self.left_widget = QWidget()
+        self.left_panel = QVBoxLayout(self.left_widget)
+        self.bar_cpu = MetricBar("CPU", C.PRI)
+        self.bar_mem = MetricBar("MEM", C.ACC2)
+        self.bar_net = MetricBar("NET", C.GREEN)
+        self.left_panel.addWidget(QLabel("◈ MONITOR"))
+        self.left_panel.addWidget(self.bar_cpu)
+        self.left_panel.addWidget(self.bar_mem)
+        self.left_panel.addWidget(self.bar_net)
+        self.left_panel.addStretch()
+        self.layout.addWidget(self.left_widget, 1)
+        
+        # Center (Core)
+        self.hud = HudCanvas()
+        self.layout.addWidget(self.hud, 3)
+        
+        # Right Panel (Log & Input)
+        self.right_widget = QWidget()
+        self.right_panel = QVBoxLayout(self.right_widget)
+        self.log = LogWidget()
+        self.drop_zone = FileDropZone()
+        self.input = QLineEdit()
+        self.input.setPlaceholderText("Command...")
+        self.input.returnPressed.connect(self._send)
+        
+        self.right_panel.addWidget(QLabel("◈ ACTIVITY"))
+        self.right_panel.addWidget(self.log)
+        self.right_panel.addWidget(self.drop_zone)
+        self.right_panel.addWidget(self.input)
+        
+        self.mute_btn = QPushButton("🎙 ACTIVE")
+        self.mute_btn.clicked.connect(self._toggle_mute)
+        self.right_panel.addWidget(self.mute_btn)
+        self.layout.addWidget(self.right_widget, 2)
+        
+        # Shortcuts
+        self.sc_compact = QShortcut(QKeySequence("Ctrl+M"), self)
+        self.sc_compact.activated.connect(self.toggle_compact)
+        
+        # Timers
+        self._metrics_tmr = QTimer(self)
+        self._metrics_tmr.timeout.connect(self._update_metrics)
+        self._metrics_tmr.start(2000)
+        
+        self._state_sig.connect(self._apply_state)
 
-        # Canvas
-        self.bg = tk.Canvas(self.root, width=self.W, height=self.H,
-                            bg=C_BG, highlightthickness=0)
-        self.bg.place(x=0, y=0)
+    def _update_metrics(self):
+        s = _metrics.snapshot()
+        self.bar_cpu.set_value(s["cpu"], f"{s['cpu']:.0f}%")
+        self.bar_mem.set_value(s["mem"], f"{s['mem']:.0f}%")
+        self.bar_net.set_value(min(100, s["net"]*10), f"{s['net']:.1f}MB/s")
 
-        # Log panel
-        LW = int(self.W * 0.72)
-        LH = 110
-        LOG_Y = self.H - LH - 80
-        self.log_frame = tk.Frame(self.root, bg=C_PANEL,
-                                   highlightbackground=C_MID,
-                                   highlightthickness=1)
-        self.log_frame.place(x=(self.W - LW) // 2, y=LOG_Y, width=LW, height=LH)
-        self.log_text = tk.Text(self.log_frame, fg=C_TEXT, bg=C_PANEL,
-                                insertbackground=C_TEXT, borderwidth=0,
-                                wrap="word", font=("Courier", 10), padx=10, pady=6)
-        self.log_text.pack(fill="both", expand=True)
-        self.log_text.configure(state="disabled")
-        self.log_text.tag_config("you", foreground="#e8e8e8")
-        self.log_text.tag_config("ai", foreground=C_PRI)
-        self.log_text.tag_config("sys", foreground=C_ACC2)
-        self.log_text.tag_config("err", foreground=C_RED)
-
-        # Text input
-        INPUT_Y = LOG_Y + LH + 6
-        self._build_input_bar(LW, INPUT_Y)
-
-        # Mute button
-        self._build_mute_button()
-
-        # Keybinds
-        self.root.bind("<F4>", lambda e: self._toggle_mute())
-        self.root.bind("<Command-m>", lambda e: self._toggle_compact())
-
-        # Start animation
-        self._animate()
-        self.root.protocol("WM_DELETE_WINDOW", lambda: os._exit(0))
-
-    def _build_input_bar(self, lw, y):
-        x0 = (self.W - lw) // 2
-        BTN_W = 70
-        INP_W = lw - BTN_W - 4
-        self._input_var = tk.StringVar()
-        self._input_entry = tk.Entry(
-            self.root, textvariable=self._input_var,
-            fg=C_TEXT, bg="#000d12", insertbackground=C_TEXT,
-            borderwidth=0, font=("Courier", 10),
-            highlightthickness=1, highlightbackground=C_DIM, highlightcolor=C_PRI
-        )
-        self._input_entry.place(x=x0, y=y, width=INP_W, height=28)
-        self._input_entry.bind("<Return>", self._on_input_submit)
-
-        self._send_btn = tk.Button(
-            self.root, text="SEND ▸", command=self._on_input_submit,
-            fg=C_PRI, bg=C_PANEL, activeforeground=C_BG, activebackground=C_PRI,
-            font=("Courier", 9, "bold"), borderwidth=0, cursor="hand2",
-            highlightthickness=1, highlightbackground=C_MID
-        )
-        self._send_btn.place(x=x0 + INP_W + 4, y=y, width=BTN_W, height=28)
-
-    def _on_input_submit(self, event=None):
-        text = self._input_var.get().strip()
-        if not text:
-            return
-        self._input_var.set("")
-        self.write_log(f"You: {text}")
-        if self.on_text_command:
-            threading.Thread(target=self.on_text_command, args=(text,), daemon=True).start()
-
-    def _build_mute_button(self):
-        BTN_W, BTN_H = 110, 32
-        self._mute_canvas = tk.Canvas(
-            self.root, width=BTN_W, height=BTN_H,
-            bg=C_BG, highlightthickness=0, cursor="hand2"
-        )
-        self._mute_canvas.place(x=18, y=self.H - 70)
-        self._mute_canvas.bind("<Button-1>", lambda e: self._toggle_mute())
-        self._draw_mute_button()
-
-    def _draw_mute_button(self):
-        c = self._mute_canvas
-        c.delete("all")
-        if self.muted:
-            c.create_rectangle(0, 0, 110, 32, outline=C_MUTED, fill="#1a0008", width=1)
-            c.create_text(55, 16, text="🔇 MUTED", fill=C_MUTED, font=("Courier", 10, "bold"))
-        else:
-            c.create_rectangle(0, 0, 110, 32, outline=C_MID, fill=C_PANEL, width=1)
-            c.create_text(55, 16, text="🎙 LIVE", fill=C_GREEN, font=("Courier", 10, "bold"))
+    def _send(self):
+        txt = self.input.text().strip()
+        if txt and self.on_text_command:
+            self.log.append_log(f"You: {txt}")
+            threading.Thread(target=self.on_text_command, args=(txt,), daemon=True).start()
+            self.input.clear()
 
     def _toggle_mute(self):
-        self.muted = not self.muted
-        self._draw_mute_button()
-        if self.muted:
-            self.set_state("MUTED")
-            self.write_log("SYS: Microphone muted.")
+        self.hud.muted = not self.hud.muted
+        self.mute_btn.setText("🔇 MUTED" if self.hud.muted else "🎙 ACTIVE")
+
+    def _apply_state(self, s):
+        self.hud.state = s
+        self.hud.speaking = (s == "SPEAKING")
+
+    def toggle_compact(self):
+        self._is_compact = not self._is_compact
+        if self._is_compact:
+            self.left_widget.hide()
+            self.right_widget.hide()
+            self.setMinimumSize(250, 250)
+            self.resize(300, 300)
+            # Stay on top for compact mode
+            self.setWindowFlags(self.windowFlags() | Qt.WindowType.WindowStaysOnTopHint)
         else:
-            self.set_state("LISTENING")
-            self.write_log("SYS: Microphone active.")
+            self.left_widget.show()
+            self.right_widget.show()
+            self.setMinimumSize(_MIN_W, _MIN_H)
+            self.resize(_DEFAULT_W, _DEFAULT_H)
+            self.setWindowFlags(self.windowFlags() & ~Qt.WindowType.WindowStaysOnTopHint)
+        self.show()
 
-    def _toggle_compact(self):
-        """Toggle between full HUD and compact overlay (Cmd+M)."""
-        self._compact_mode = not self._compact_mode
-        if self._compact_mode:
-            self.root.geometry("200x200")
-            self.root.attributes("-topmost", True)
-            try:
-                self.root.attributes("-transparent", True)
-            except Exception:
-                pass
-            self.log_frame.place_forget()
-            self._input_entry.place_forget()
-            self._send_btn.place_forget()
-            self._mute_canvas.place_forget()
-        else:
-            sw = self.root.winfo_screenwidth()
-            sh = self.root.winfo_screenheight()
-            self.root.geometry(f"{self.W}x{self.H}+{(sw - self.W) // 2}+{(sh - self.H) // 2}")
-            self.root.attributes("-topmost", False)
-            LW = int(self.W * 0.72)
-            LH = 110
-            LOG_Y = self.H - LH - 80
-            self.log_frame.place(x=(self.W - LW) // 2, y=LOG_Y, width=LW, height=LH)
-            x0 = (self.W - LW) // 2
-            INP_W = LW - 74
-            INPUT_Y = LOG_Y + LH + 6
-            self._input_entry.place(x=x0, y=INPUT_Y, width=INP_W, height=28)
-            self._send_btn.place(x=x0 + INP_W + 4, y=INPUT_Y, width=70, height=28)
-            self._mute_canvas.place(x=18, y=self.H - 70)
-
-    # ── State ──────────────────────────────────────────────────────────────
-
-    def set_state(self, state: str):
-        self._jarvis_state = state
-        state_map = {
-            "MUTED": ("MUTED", False),
-            "SPEAKING": ("SPEAKING", True),
-            "THINKING": ("THINKING", False),
-            "LISTENING": ("LISTENING", False),
-            "PROCESSING": ("PROCESSING", False),
-        }
-        self.status_text, self.speaking = state_map.get(state, ("ONLINE", False))
-
-    # ── Animation ──────────────────────────────────────────────────────────
-
-    @staticmethod
-    def _ac(r, g, b, a):
-        f = a / 255.0
-        return f"#{int(r * f):02x}{int(g * f):02x}{int(b * f):02x}"
-
-    def _animate(self):
-        self.tick += 1
-        now = time.time()
-
-        if now - self.last_t > (0.14 if self.speaking else 0.55):
-            if self.speaking:
-                self.target_scale = random.uniform(1.05, 1.11)
-                self.target_halo = random.uniform(138, 182)
-            elif self.muted:
-                self.target_scale = random.uniform(0.998, 1.001)
-                self.target_halo = random.uniform(20, 32)
-            else:
-                self.target_scale = random.uniform(1.001, 1.007)
-                self.target_halo = random.uniform(50, 68)
-            self.last_t = now
-
-        sp = 0.35 if self.speaking else 0.16
-        self.scale += (self.target_scale - self.scale) * sp
-        self.halo_a += (self.target_halo - self.halo_a) * sp
-
-        for i, spd in enumerate([1.2, -0.8, 1.9] if self.speaking else [0.5, -0.3, 0.82]):
-            self.rings_spin[i] = (self.rings_spin[i] + spd) % 360
-
-        self.scan_angle = (self.scan_angle + (2.8 if self.speaking else 1.2)) % 360
-        self.scan2_angle = (self.scan2_angle + (-1.7 if self.speaking else -0.68)) % 360
-
-        pspd = 3.8 if self.speaking else 1.8
-        limit = self.FACE_SZ * 0.72
-        new_p = [r + pspd for r in self.pulse_r if r + pspd < limit]
-        if len(new_p) < 3 and random.random() < (0.06 if self.speaking else 0.022):
-            new_p.append(0.0)
-        self.pulse_r = new_p
-
-        if self.tick % 40 == 0:
-            self.status_blink = not self.status_blink
-
-        self._draw()
-        self.root.after(16, self._animate)
-
-    def _draw(self):
-        c = self.bg
-        t = self.tick
-        FCX, FCY = self.FCX, self.FCY
-        FW = self.FACE_SZ
-
-        if self._compact_mode:
-            W = H = 200
-            FCX = FCY = 100
-            FW = 160
-        else:
-            W, H = self.W, self.H
-
-        c.delete("all")
-
-        # Background grid
-        if not self._compact_mode:
-            for x in range(0, W, 44):
-                for y in range(0, H, 44):
-                    c.create_rectangle(x, y, x + 1, y + 1, fill=C_DIMMER, outline="")
-
-        # Halo rings
-        for r in range(int(FW * 0.54), int(FW * 0.28), -22):
-            frac = 1.0 - (r - FW * 0.28) / (FW * 0.26)
-            ga = max(0, min(255, int(self.halo_a * 0.09 * frac)))
-            gh = f"{ga:02x}"
-            if self.muted:
-                c.create_oval(FCX - r, FCY - r, FCX + r, FCY + r, outline=f"#{gh}0011", width=2)
-            else:
-                c.create_oval(FCX - r, FCY - r, FCX + r, FCY + r, outline=f"#00{gh}ff", width=2)
-
-        # Pulse waves
-        for pr in self.pulse_r:
-            pa = max(0, int(220 * (1.0 - pr / (FW * 0.72))))
-            r = int(pr)
-            if self.muted:
-                c.create_oval(FCX - r, FCY - r, FCX + r, FCY + r,
-                              outline=self._ac(255, 30, 80, pa // 3), width=2)
-            else:
-                c.create_oval(FCX - r, FCY - r, FCX + r, FCY + r,
-                              outline=self._ac(0, 212, 255, pa), width=2)
-
-        # Spinning rings
-        for idx, (r_frac, w_ring, arc_l, gap) in enumerate([
-                (0.47, 3, 110, 75), (0.39, 2, 75, 55), (0.31, 1, 55, 38)]):
-            ring_r = int(FW * r_frac)
-            base_a = self.rings_spin[idx]
-            a_val = max(0, min(255, int(self.halo_a * (1.0 - idx * 0.18))))
-            col = self._ac(255, 30, 80, a_val) if self.muted else self._ac(0, 212, 255, a_val)
-            for s in range(360 // (arc_l + gap)):
-                start = (base_a + s * (arc_l + gap)) % 360
-                c.create_arc(FCX - ring_r, FCY - ring_r, FCX + ring_r, FCY + ring_r,
-                             start=start, extent=arc_l, outline=col, width=w_ring, style="arc")
-
-        # Scanner arcs
-        sr = int(FW * 0.49)
-        scan_a = min(255, int(self.halo_a * 1.4))
-        arc_ext = 70 if self.speaking else 42
-        scan_col = self._ac(255, 30, 80, scan_a) if self.muted else self._ac(0, 212, 255, scan_a)
-        c.create_arc(FCX - sr, FCY - sr, FCX + sr, FCY + sr,
-                     start=self.scan_angle, extent=arc_ext, outline=scan_col, width=3, style="arc")
-        c.create_arc(FCX - sr, FCY - sr, FCX + sr, FCY + sr,
-                     start=self.scan2_angle, extent=arc_ext,
-                     outline=self._ac(255, 100, 0, scan_a // 2), width=2, style="arc")
-
-        # Tick marks
-        t_out = int(FW * 0.495)
-        t_in = int(FW * 0.472)
-        a_mk = self._ac(0, 212, 255, 155)
-        for deg in range(0, 360, 10):
-            rad = math.radians(deg)
-            inn = t_in if deg % 30 == 0 else t_in + 5
-            c.create_line(FCX + t_out * math.cos(rad), FCY - t_out * math.sin(rad),
-                          FCX + inn * math.cos(rad), FCY - inn * math.sin(rad),
-                          fill=a_mk, width=1)
-
-        # Crosshairs
-        ch_r = int(FW * 0.50)
-        gap = int(FW * 0.15)
-        ch_a = self._ac(0, 212, 255, int(self.halo_a * 0.55))
-        for x1, y1, x2, y2 in [
-                (FCX - ch_r, FCY, FCX - gap, FCY), (FCX + gap, FCY, FCX + ch_r, FCY),
-                (FCX, FCY - ch_r, FCX, FCY - gap), (FCX, FCY + gap, FCX, FCY + ch_r)]:
-            c.create_line(x1, y1, x2, y2, fill=ch_a, width=1)
-
-        # Corner brackets
-        blen = 22
-        bc = self._ac(0, 212, 255, 200)
-        hl = FCX - FW // 2
-        hr = FCX + FW // 2
-        ht = FCY - FW // 2
-        hb = FCY + FW // 2
-        for bx, by, sdx, sdy in [(hl, ht, 1, 1), (hr, ht, -1, 1),
-                                   (hl, hb, 1, -1), (hr, hb, -1, -1)]:
-            c.create_line(bx, by, bx + sdx * blen, by, fill=bc, width=2)
-            c.create_line(bx, by, bx, by + sdy * blen, fill=bc, width=2)
-
-        # Central orb
-        orb_r = int(FW * 0.27 * self.scale)
-        orb_color = (255, 30, 80) if self.muted else (0, 65, 120)
-        for i in range(7, 0, -1):
-            r2 = int(orb_r * i / 7)
-            frac = i / 7
-            ga = max(0, min(255, int(self.halo_a * 1.1 * frac)))
-            c.create_oval(FCX - r2, FCY - r2, FCX + r2, FCY + r2,
-                          fill=self._ac(int(orb_color[0] * frac),
-                                        int(orb_color[1] * frac),
-                                        int(orb_color[2] * frac), ga),
-                          outline="")
-        c.create_text(FCX, FCY, text=SYSTEM_NAME,
-                      fill=self._ac(0, 212, 255, min(255, int(self.halo_a * 2))),
-                      font=("Courier", 14, "bold"))
-
-        if self._compact_mode:
-            return
-
-        # Header
-        HDR = 62
-        c.create_rectangle(0, 0, W, HDR, fill="#00080d", outline="")
-        c.create_line(0, HDR, W, HDR, fill=C_MID, width=1)
-        c.create_text(W // 2, 22, text=SYSTEM_NAME, fill=C_PRI, font=("Courier", 18, "bold"))
-        c.create_text(W // 2, 44, text=SYSTEM_FULL, fill=C_MID, font=("Courier", 9))
-        c.create_text(16, 31, text=MODEL_BADGE, fill=C_DIM, font=("Courier", 9), anchor="w")
-        c.create_text(W - 16, 31, text=time.strftime("%H:%M:%S"),
-                      fill=C_PRI, font=("Courier", 14, "bold"), anchor="e")
-
-        # Status indicator
-        sy = FCY + FW // 2 + 45
-        if self.muted:
-            stat, sc = "⊘ MUTED", C_MUTED
-        elif self.speaking:
-            stat, sc = "● SPEAKING", C_ACC
-        elif self._jarvis_state == "THINKING":
-            sym = "◈" if self.status_blink else "◇"
-            stat, sc = f"{sym} THINKING", C_ACC2
-        elif self._jarvis_state == "LISTENING":
-            sym = "●" if self.status_blink else "○"
-            stat, sc = f"{sym} LISTENING", C_GREEN
-        else:
-            sym = "●" if self.status_blink else "○"
-            stat, sc = f"{sym} {self.status_text}", C_PRI
-        c.create_text(W // 2, sy, text=stat, fill=sc, font=("Courier", 11, "bold"))
-
-        # Audio visualizer
-        wy = sy + 22
-        N, BH, bw = 32, 18, 8
-        total_w = N * bw
-        wx0 = (W - total_w) // 2
-        for i in range(N):
-            if self.muted:
-                hb, col = 2, C_MUTED
-            elif self.speaking:
-                hb = random.randint(3, BH)
-                col = C_PRI if hb > BH * 0.6 else C_MID
-            else:
-                hb = int(3 + 2 * math.sin(t * 0.08 + i * 0.55))
-                col = C_DIM
-            bx = wx0 + i * bw
-            c.create_rectangle(bx, wy + BH - hb, bx + bw - 1, wy + BH, fill=col, outline="")
-
-        # Footer
-        c.create_rectangle(0, H - 28, W, H, fill="#00080d", outline="")
-        c.create_line(0, H - 28, W, H - 28, fill=C_DIM, width=1)
-        c.create_text(W - 16, H - 14, fill=C_DIM, font=("Courier", 8),
-                      text="[F4] MUTE  [⌘M] COMPACT", anchor="e")
-        c.create_text(W // 2, H - 14, fill=C_DIM, font=("Courier", 8),
-                      text="Teni AI  ·  CLASSIFIED  ·  JARVIS EDITION")
-
-    # ── Log ────────────────────────────────────────────────────────────────
-
-    def write_log(self, text: str):
-        self.typing_queue.append(text)
-        if not self.is_typing:
-            self._start_typing()
-
-    def _start_typing(self):
-        if not self.typing_queue:
-            self.is_typing = False
-            return
-        self.is_typing = True
-        text = self.typing_queue.popleft()
-        tl = text.lower()
-        if tl.startswith("you:"):
-            tag = "you"
-        elif tl.startswith("teni:") or tl.startswith("jarvis:") or tl.startswith("ai:"):
-            tag = "ai"
-        elif tl.startswith("err:") or "error" in tl:
-            tag = "err"
-        else:
-            tag = "sys"
-        self.log_text.configure(state="normal")
-        self._type_char(text, 0, tag)
-
-    def _type_char(self, text, i, tag):
-        if i < len(text):
-            self.log_text.insert(tk.END, text[i], tag)
-            self.log_text.see(tk.END)
-            self.root.after(8, self._type_char, text, i + 1, tag)
-        else:
-            self.log_text.insert(tk.END, "\n")
-            self.log_text.configure(state="disabled")
-            self.root.after(25, self._start_typing)
-
+class TeniHUD:
+    """Teni UI Interface Wrapper"""
+    def __init__(self):
+        self._app = QApplication.instance() or QApplication(sys.argv)
+        self._win = MainWindow()
+        self.on_text_command = None
+    
+    @property
+    def muted(self): return self._win.hud.muted
+    
+    def set_state(self, s): self._win._state_sig.emit(s)
+    def write_log(self, t): self._win.log.append_log(t)
+    
     def run(self):
-        self.root.mainloop()
+        self._win.on_text_command = self.on_text_command
+        self._win.show()
+        self._app.exec()

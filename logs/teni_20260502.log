@@ -31,3 +31,5 @@
 2026-05-02 17:53:55,089 - INFO - [ROUTER] → conversation mode
 2026-05-02 17:54:00,312 - INFO - [ROUTER] → conversation mode
 2026-05-02 17:54:10,143 - INFO - [ROUTER] → conversation mode
+2026-05-02 18:31:34,718 - WARNING - Warning: there are non-data parts in the response: ['text', 'thought'], returning concatenated data result from data parts, check out the non data parts for full response from model.
+2026-05-02 18:36:57,010 - WARNING - Warning: there are non-data parts in the response: ['text', 'thought'], returning concatenated data result from data parts, check out the non data parts for full response from model.

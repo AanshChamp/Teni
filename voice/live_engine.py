@@ -16,6 +16,8 @@ from google import genai
 from google.genai import types
 
 from config import Config
+from core.personality import PersonalityEngine
+from core.environments import EnvironmentManager
 
 
 # ── Tool Declarations for Gemini Function Calling ────────────────────────────
@@ -185,16 +187,29 @@ TOOL_DECLARATIONS = [
             "required": ["category", "key", "value"]
         }
     },
+    {
+        "name": "activate_preset",
+        "description": "Activates a workspace environment preset (e.g., 'study_mode', 'code_mode').",
+        "parameters": {
+            "type": "OBJECT",
+            "properties": {
+                "preset_name": {"type": "STRING", "description": "Name of the preset to activate"}
+            },
+            "required": ["preset_name"]
+        }
+    },
 ]
 
 
 class LiveEngine:
     """Gemini Live Audio — real-time bidirectional voice with tool execution."""
 
-    def __init__(self, executor, ui=None, biometrics=None):
+    def __init__(self, executor, ui=None, biometrics=None, personality=None):
         self.executor = executor
         self.ui = ui
         self.biometrics = biometrics
+        self.personality = personality or PersonalityEngine()
+        self.env = EnvironmentManager()
         self.session = None
         self.audio_in_queue = None
         self.out_queue = None
@@ -248,6 +263,8 @@ class LiveEngine:
         except Exception:
             pass
 
+        behavior_modifiers = self.personality.get_behavior_prompt()
+
         sys_prompt = (
             f"[CURRENT DATE & TIME]\n"
             f"Right now it is: {time_str}\n\n"
@@ -257,7 +274,8 @@ class LiveEngine:
             f"Address the user as 'Aansh'. Be concise (1-2 sentences max). "
             f"Always use the correct tool. Never simulate results. "
             f"Keep responses SHORT. Speed is priority. "
-            f"If you need to perform an action, call the tool FIRST, then report briefly."
+            f"If you need to perform an action, call the tool FIRST, then report briefly.\n\n"
+            f"[PERSONALITY MODIFIERS]\n{behavior_modifiers}"
         )
 
         return types.LiveConnectConfig(
@@ -301,6 +319,14 @@ class LiveEngine:
                 response={"result": "ok", "silent": True}
             )
 
+        # Handle activate_preset
+        if name == "activate_preset":
+            success = self.env.activate(args.get("preset_name", ""))
+            return types.FunctionResponse(
+                id=fc.id, name=name,
+                response={"result": "Preset activated" if success else "Failed to find preset"}
+            )
+
         # Route to Teni's ExecutionEngine
         loop = asyncio.get_event_loop()
         result = "Done."
@@ -317,6 +343,7 @@ class LiveEngine:
                 result = str(exec_result)
         except Exception as e:
             result = f"Tool '{name}' failed: {e}"
+            if self.personality: self.personality.on_failure()
             traceback.print_exc()
 
         if self.ui and not self._muted:
