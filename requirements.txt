@@ -1,0 +1,8 @@
+requests>=2.31.0
+python-dotenv>=1.0.0
+PyQt6>=6.6.0
+pyobjc-framework-Cocoa>=12.0
+SpeechRecognition>=3.10.0
+pyaudio>=0.2.14
+mediapipe>=0.10.0
+opencv-python>=4.8.0

@@ -1,0 +1,71 @@
+2026-02-26 13:22:58,722 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:23:19,102 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:23:44,008 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:23:58,018 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:24:13,781 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:24:40,359 - INFO - [ROUTER] → command mode
+2026-02-26 13:24:40,360 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:24:52,848 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:25:10,291 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:25:26,859 - INFO - [ROUTER] → command mode
+2026-02-26 13:25:26,859 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:25:51,157 - INFO - [ROUTER] → command mode
+2026-02-26 13:25:51,158 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:27:10,519 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:27:40,036 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:28:20,043 - INFO - [ROUTER] → command mode
+2026-02-26 13:28:20,044 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:29:40,025 - INFO - [ROUTER] → command mode
+2026-02-26 13:29:40,027 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:29:50,047 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:30:48,367 - INFO - [ROUTER] → command mode
+2026-02-26 13:30:48,368 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:31:27,687 - INFO - [ROUTER] → command mode
+2026-02-26 13:31:29,660 - INFO - Input: Search pneumonoultramicroscopicsilicovolcanoconiosis on safari
+2026-02-26 13:31:29,661 - INFO - Intent: {'mode': 'command', 'actions': [{'action': 'safari_control', 'target': None, 'parameters': {'query': 'pneumonoultramicroscopicsilicovolcanoconiosis'}}]}
+2026-02-26 13:31:29,661 - INFO - Result: {'success': True, 'message': 'Successfully executed 1 actions', 'results': [{'success': True, 'message': 'Safari control executed: reopen_last_tab'}]}
+2026-02-26 13:31:29,661 - INFO - Command executed successfully
+2026-02-26 13:31:38,697 - INFO - [ROUTER] → command mode
+2026-02-26 13:31:38,931 - INFO - Input: open safari
+2026-02-26 13:31:38,931 - INFO - Intent: {'mode': 'command', 'actions': [{'action': 'open_app', 'target': 'Safari', 'parameters': {'app': 'Safari'}, 'requires_confirmation': False}]}
+2026-02-26 13:31:38,931 - INFO - Result: {'success': True, 'message': 'Successfully executed 1 actions', 'results': [{'success': True, 'message': 'Focused Safari'}]}
+2026-02-26 13:31:38,931 - INFO - Command executed successfully
+2026-02-26 13:31:57,654 - INFO - [ROUTER] → command mode
+2026-02-26 13:31:57,656 - INFO - Input: volume up
+2026-02-26 13:31:57,656 - INFO - Intent: {'mode': 'command', 'actions': [{'action': 'volume_control', 'target': None, 'parameters': {'operation': 'increase', 'increment': 5}, 'requires_confirmation': False}]}
+2026-02-26 13:31:57,656 - INFO - Result: {'success': False, 'error': 'Action 1 failed: Unknown volume action: set', 'completed_actions': [], 'failed_action': {'success': False, 'error': 'Unknown volume action: set'}}
+2026-02-26 13:31:57,656 - ERROR - Command failed: Action 1 failed: Unknown volume action: set
+2026-02-26 13:32:19,151 - INFO - [ROUTER] → command mode
+2026-02-26 13:32:19,303 - INFO - Input: volume up
+2026-02-26 13:32:19,303 - INFO - Intent: {'mode': 'command', 'actions': [{'action': 'volume_control', 'target': None, 'parameters': {'operation': 'increase', 'increment': 5}, 'requires_confirmation': False}]}
+2026-02-26 13:32:19,303 - INFO - Result: {'success': True, 'message': 'Successfully executed 1 actions', 'results': [{'success': True, 'message': 'Volume up'}]}
+2026-02-26 13:32:19,303 - INFO - Command executed successfully
+2026-02-26 13:32:27,453 - INFO - [ROUTER] → command mode
+2026-02-26 13:32:27,453 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:32:37,691 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:32:45,554 - INFO - [ROUTER] → command mode
+2026-02-26 13:32:45,555 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:32:47,610 - INFO - [ROUTER] → command mode
+2026-02-26 13:32:47,611 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:33:10,663 - INFO - [ROUTER] → command mode
+2026-02-26 13:33:10,665 - INFO - Input: create folder named Test on Desktop
+2026-02-26 13:33:10,665 - INFO - Intent: {'mode': 'command', 'actions': [{'action': 'create_folder', 'target': 'Desktop', 'parameters': {'name': 'Test'}, 'requires_confirmation': False}]}
+2026-02-26 13:33:10,665 - INFO - Result: {'success': False, 'error': 'Action 1 failed: Failed to create folder: expected str, bytes or os.PathLike object, not NoneType', 'completed_actions': [], 'failed_action': {'success': False, 'error': 'Failed to create folder: expected str, bytes or os.PathLike object, not NoneType'}}
+2026-02-26 13:33:10,665 - ERROR - Command failed: Action 1 failed: Failed to create folder: expected str, bytes or os.PathLike object, not NoneType
+2026-02-26 13:33:40,361 - INFO - [ROUTER] → command mode
+2026-02-26 13:33:40,361 - INFO - [ROUTER] → conversation mode
+2026-02-26 13:34:45,643 - INFO - [ROUTER] → command mode
+2026-02-26 13:34:45,646 - INFO - Input: create folder named Test on Desktop
+2026-02-26 13:34:45,647 - INFO - Intent: {'mode': 'command', 'actions': [{'action': 'create_folder', 'target': None, 'parameters': {'path': '/Users/aanshgoel/Desktop/Test', 'name': 'Test'}, 'requires_confirmation': False}]}
+2026-02-26 13:34:45,647 - INFO - Result: {'success': True, 'message': 'Successfully executed 1 actions', 'results': [{'success': True, 'message': 'Created folder: /Users/aanshgoel/Desktop/Test/Test'}]}
+2026-02-26 13:34:45,647 - INFO - Command executed successfully
+2026-02-26 13:35:29,699 - INFO - [ROUTER] → command mode
+2026-02-26 13:35:39,004 - INFO - Input: splitscreen notes and safari
+2026-02-26 13:35:39,005 - INFO - Intent: {'mode': 'command', 'actions': [{'action': 'split_screen', 'target': None, 'parameters': {'apps': ['Notes', 'Safari']}, 'requires_confirmation': False}]}
+2026-02-26 13:35:39,005 - INFO - Result: {'success': True, 'message': 'Successfully executed 1 actions', 'results': [{'success': True, 'message': 'Split screen Notes and Safari (manual positioning)'}]}
+2026-02-26 13:35:39,005 - INFO - Command executed successfully
+2026-02-26 13:36:06,579 - INFO - [ROUTER] → command mode
+2026-02-26 13:36:17,106 - INFO - Input: split screen notes and safari
+2026-02-26 13:36:17,106 - INFO - Intent: {'mode': 'command', 'actions': [{'action': 'split_screen', 'target': None, 'parameters': {'apps': ['Notes', 'Safari']}, 'requires_confirmation': False}]}
+2026-02-26 13:36:17,106 - INFO - Result: {'success': True, 'message': 'Successfully executed 1 actions', 'results': [{'success': True, 'message': 'Split screen Notes and Safari (manual positioning)'}]}
+2026-02-26 13:36:17,106 - INFO - Command executed successfully

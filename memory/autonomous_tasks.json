@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "description": "Organize your Downloads folder",
+    "action": {
+      "action": "agent_task",
+      "parameters": {
+        "goal": "organize downloads"
+      }
+    },
+    "priority": 6,
+    "suggested_at": "2026-05-02T17:11:41.885639",
+    "status": "rejected"
+  },
+  {
+    "id": 2,
+    "description": "Check upcoming deadlines",
+    "action": {
+      "action": "reminder_add"
+    },
+    "priority": 8,
+    "suggested_at": "2026-05-02T17:11:41.885790",
+    "status": "approved"
+  }
+]

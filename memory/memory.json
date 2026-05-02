@@ -1,0 +1,1324 @@
+{
+  "command_history": [
+    {
+      "timestamp": "2026-02-18T23:16:12.668145",
+      "input": "open safari",
+      "intent": {
+        "action": "open_app",
+        "target": "Safari",
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": "Safari"
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Opened Safari"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:16:57.414263",
+      "input": "open safari",
+      "intent": {
+        "action": "open_app",
+        "target": "Safari",
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": "Safari"
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Opened Safari"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:18:30.515758",
+      "input": "open safari",
+      "intent": {
+        "action": "open_app",
+        "target": "Safari",
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": null
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Opened Safari"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:18:43.026854",
+      "input": "in safari search apple",
+      "intent": {
+        "action": "search_web",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": "apple",
+          "content": null,
+          "app": null
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Opened https://www.google.com/search?q=apple in Safari"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:19:20.029938",
+      "input": "list files in downloads",
+      "intent": {
+        "action": "list_files",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": "~/Downloads",
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": null
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "files": [
+          " - visual selection.png",
+          " C&C Tasksheet 1.odt",
+          " Digital Design MYP 3 Term 2.docx",
+          " WSC KL Parent meeting.pptx",
+          ".DS_Store",
+          ".localized",
+          "1 million founders team 15 studentOS.pptx",
+          "105.pdf",
+          "1769190691734-Copy_of_Sci-Fi_Superhero_Practice_Task (1).pdf",
+          "1769190691734-Copy_of_Sci-Fi_Superhero_Practice_Task.pdf",
+          "1769191172113-quadratic_equations_word_problems.docx",
+          "197283-904592622_small.mp4",
+          "2. ECONOMIC AGENTS Complete .pptx.pdf",
+          "2025 Kuala Lumpur Global Jr-Ip Awards (1).pdf",
+          "2025 Kuala Lumpur Global Jr-Ip Awards.pdf",
+          "266065_small.mp4",
+          "473C2FDC-0B75-497A-B1FE-AA1863C9C885.mov",
+          "5307917-uhd_3840_2160_24fps.mp4",
+          "5Scientificnotationoperations_practice_sheet.pdf",
+          "7543653-hd_1920_1080_30fps.mp4",
+          "7655445-hd_1920_1080_25fps.mp4",
+          "7958862-uhd_4096_2160_25fps.mp4",
+          "8.4__Business_Cycle.pptx",
+          "8136901-uhd_2160_4096_24fps.mp4",
+          "8136902-uhd_4096_2160_24fps.mp4",
+          "853833-hd_1920_1080_25fps.mp4",
+          "8544004-hd_1920_1080_25fps.mp4",
+          "8890708-uhd_3840_2160_24fps.mp4",
+          "9413469-hd_1920_1080_25fps.mp4",
+          "97_upper-and-lower-bounds-2.pdf",
+          "97_upper-and-lower-bounds.pdf",
+          "AI in Finance Numbers.png",
+          "AI-Powered Student Operating System-2.zip",
+          "AI-Powered Student Operating System.zip",
+          "AI_Business_Plan.json",
+          "AI_Finance_PieChart_Infographic.png",
+          "AV to Sign.pptx",
+          "Aansh goel Participation.pdf",
+          "AanshGoel_SciFiSuperheroPoster.pdf",
+          "Activites-pedagogiques.jpg",
+          "Addressing Communication Barriers for the Deaf Community in India - visual selection.png",
+          "Air India Web Booking eTicket (9334V9) - AANSH.pdf",
+          "Alcove.dmg",
+          "Annual Day Script.pdf",
+          "Antigravity.dmg",
+          "Appendix_Strand1_2_Linked.docx",
+          "Appointment Confirmation \u00a0\u00b7 NEW.pdf",
+          "AssessPrep_Mac_v11.0.0_2024_11_17.dmg",
+          "AssessPrep_Mac_v12.1.0_2025_04_04.dmg",
+          "Audio_Video to Sign Language Translator - visual selection-10.png",
+          "Audio_Video to Sign Language Translator - visual selection-11.png",
+          "Audio_Video to Sign Language Translator - visual selection-12.png",
+          "Audio_Video to Sign Language Translator - visual selection-2.png",
+          "Audio_Video to Sign Language Translator - visual selection-3.png",
+          "Audio_Video to Sign Language Translator - visual selection-4.png",
+          "Audio_Video to Sign Language Translator - visual selection-5.png",
+          "Audio_Video to Sign Language Translator - visual selection-6.png",
+          "Audio_Video to Sign Language Translator - visual selection-7.png",
+          "Audio_Video to Sign Language Translator - visual selection-8.png",
+          "Audio_Video to Sign Language Translator - visual selection-9.png",
+          "Audio_Video to Sign Language Translator - visual selection.png",
+          "Brave-Browser.dmg",
+          "Brooklyn_Specialty_Coffee_Business_Plan.md",
+          "Business Flowchart.json",
+          "Business Plan.json",
+          "Business Plan_607cf9ef.pdf",
+          "Business Plan_68968714.pdf",
+          "Business Plan_acbec505.html",
+          "Business Plan_d7ca9f03.pdf",
+          "Business Process Flowchart_607cf9ef.pdf",
+          "Business Process Flowchart_acbec505.html",
+          "Business-Plan-3.txt",
+          "Business-Plan-Step-8.pdf",
+          "Business_Management_IA.docx",
+          "Busniness.docx",
+          "C&C Tasksheet 2.docx",
+          "COMMENT_CHOISIR_SON_METIERCRIT\u00c8RE_B_MYP4.docx",
+          "CRITERE_B_LA_PROFESSION.docx",
+          "CRITERION_B_LA_VIE_SCOLAIRE (1).docx",
+          "CRITERION_B_LA_VIE_SCOLAIRE.docx",
+          "Case Study I&S - ECO.docx",
+          "Certificate_Aansh_Goel.png",
+          "ChatGPT Image Dec 20, 2025, 12_11_09 AM.png",
+          "ChatGPT Image Dec 23, 2025, 07_51_38 PM.png",
+          "ChatGPT Image Dec 24, 2025, 06_42_50 PM.png",
+          "ChatGPT Image Feb 1, 2026, 04_22_57 PM.png",
+          "ChatGPT Image Feb 1, 2026, 05_27_53 PM.png",
+          "ChatGPT Image Jan 30, 2026, 10_37_08 PM.jpeg",
+          "ChatGPT Image Jan 30, 2026, 12_22_11 AM.png",
+          "ChatGPT Image Jul 31, 2025 at 12_31_21 PM.png",
+          "ChatGPT_Atlas.dmg",
+          "ChatPage.tsx",
+          "Class_work-_Direct_indirect_variation_Practice_questions.docx",
+          "Codex.dmg",
+          "Cold_War_Recap.pdf",
+          "Command_Term_Justification (1).docx",
+          "Command_Term_Justification (2).docx",
+          "Command_Term_Justification.docx",
+          "Compound-Interest-Worksheet-2(extended math).pdf",
+          "Connected Communites SOI - Design can support meaningful collaboration within communities in an interconnected world.mind",
+          "Coordinate_Geometry_Practice.pdf",
+          "Copy of L&L MYP 3 HW April Week 1.docx",
+          "Copy of MYP 4 HW February Week 1.docx",
+          "Copy of MYP4 Diwali Homework 2025-2.docx",
+          "Copy of MYP4 Diwali Homework 2025-3.docx",
+          "Copy of MYP4 Diwali Homework 2025.docx",
+          "Copy of MYP4 Diwali Homework 2025.pdf",
+          "Copy of Question_bank_Unit_wise_QP.docx",
+          "Copy of Sci-Fi_Superhero Practice Task.pdf",
+          "Copy of Superhero Activity.docx",
+          "Copy of The Renaissance and the Reformation by Slidesgo .pptx.pdf",
+          "Corrosion_Investigation.docx__2_.pdf",
+          "Crafting Myths.docx",
+          "Criterion A.docx",
+          "Criterion D.docx",
+          "Criterion_B_Appendix_Term-1.pdf",
+          "Criterion_B_Task_Sheet_Peace_and_Conflict__1_.pdf",
+          "Criterion_D_Appendix_-.pdf",
+          "Cursor-darwin-universal.dmg",
+          "DANCE TASK 3.mov",
+          "DCS_World_Server_modular.exe",
+          "DCS_World_web.exe",
+          "DD Documentation Term 2.docx",
+          "DD Documentation.docx",
+          "DD Work/",
+          "DD_Documentation.docx",
+          "DD_IB_Term_Sample_2_AD_.pdf",
+          "DPSI MYP PERSONAL PROJECT HANDBOOK 2026.pdf",
+          "DPSI-Menu-Data-2026-02-11.csv",
+          "DPSI-Menu-Data-2026-02-18.csv",
+          "DP_1_DECISION_TREE_PRACTICE.docx",
+          "Debate Scoring Criteria and Guidelines.pdf",
+          "Debate Scoring Form.pdf",
+          "Delhi Round Schedule 2025.pdf",
+          "Docker.dmg",
+          "ETHEREUM_Aansh Goel_Swaysphere_Certificate.pdf",
+          "EXERCISE_SUR_L_ECRITURE.docx",
+          "Earth SOS .mp4",
+          "Economics_8.3_.pptx",
+          "Economics_Flip_Class_-_Adit___Kshitij.pptx",
+          "Evernote-latest.dmg",
+          "Examplar_C.docx",
+          "Examplar_for_SA_-_Eco__.pdf",
+          "Executive Abstract For Universal Niche Theory.pdf",
+          "Executive Abstract.docx",
+          "Experiment_on_Reactivity_of_Metals.docx",
+          "Extended_Math_Formula_Booklet_U_.pdf",
+          "FA1___2_.pages",
+          "Fairytale - SA V2.pdf",
+          "Fermentation industry & Seed Germination.docx",
+          "Fortinet_CA_SSL.cer",
+          "FullLogo.png",
+          "GOLDENODYSSEY_00001226_Sale_en.pdf",
+          "Geometric-Progressions.pdf",
+          "Google_Icons-09-512.webp",
+          "Gossip_Column_Checklist.docx",
+          "Group_1_ALKALI_METALS.docx",
+          "Group_2_ALKALINE_EARTH_METALS.docx",
+          "HHW1_MYP4_EMERGENT.docx",
+          "HW_2_Emergent_MYP_4.docx",
+          "Handout_Carbon_Footprint_Case_study.pdf",
+          "Home.pdf",
+          "Homework_Chem_MYP_3.docx",
+          "IAES_2026_Extended_Abstract_Template (1).pdf",
+          "IB eAssessment Player-4.2.0-Apple.pkg",
+          "IDENTIFICATION OF PROBLEM - visual selection.png",
+          "IMG_0719.JPG",
+          "IMG_0723.JPG",
+          "IMG_1088.jpeg",
+          "IMG_5125.HEIC",
+          "IMG_5126.HEIC",
+          "IMG_5127.HEIC",
+          "IMG_5128.HEIC",
+          "IMG_5129.HEIC",
+          "IMG_5130.HEIC",
+          "IMG_5321.MOV",
+          "Index.tsx",
+          "Inspiring projects Around the world.pdf",
+          "Install Spotify.app/",
+          "Internal_Monologue__1_.png",
+          "Introduction__The_Power_of_Dance_in_Social_Change.docx",
+          "Investigating_Theatre_Genres_-_Epic_and_Comedy_Updated.docx",
+          "Investigating_Theatre_Genres__Tragedy_and_Comedy.docx",
+          "L&L Homework Week 2 - SDG Research.pptx",
+          "LATEST_TT_3C copy.jpeg",
+          "LATEST_TT_3C.jpg",
+          "LES_FE\u0302TES_FRANC\u0327AISES.pdf",
+          "LE_LEOGEMENT_DURABLE_MYP_4.pdf",
+          "LIST_OF_VOCABULARY.docx",
+          "LM-Studio-0.3.13-2-arm64.dmg",
+          "LPU/",
+          "La Comparison.docx",
+          "La_Maison_Comprendre_lHabitat.docx",
+          "Linguistic_Techniques_Resource__Task_2_.pdf",
+          "Literary Text.docx",
+          "Living With Less \u2013 Designing Solutions for Resource-Limited Environments.pdf",
+          "Living With Less \u2013 Designing Solutions for Resource-Limited Environments.png",
+          "Lower_and_Upper_Bound_PPT.pptx",
+          "MET_Merchant_of_Venice_MYP4.pdf",
+          "MS-TEA2-DP_1-SL-PAPER_2.docx",
+          "MS-TEA2-DP_1_-PAPER_2-HL.docx",
+          "MS_TEA_2-_DP1_-_P2.pdf",
+          "MYP 4 Passion Project .pdf",
+          "MYP-4_Weekend_task_sheet___PD6REW_.pdf",
+          "MYP3 Math Practice TEA 2024-25.docx",
+          "MYP3 Question Bank 2 - Criterion Based.docx",
+          "MYP3-FA1.pdf",
+          "MYP3C C&C Analysis Task sheet.docx",
+          "MYP3C_ Soliloquy Image prompt.docx",
+          "MYP3_Math_Master_Notes_Term_End_Assessment_May2025.pdf",
+          "MYP3_Science_TEA_Sample.docx",
+          "MYP3_Term_2_Unit_2_Math_Tasksheet__10_3D_shapes_2024-25.docx",
+          "MYP3_Term_2_Unit_2_Math_Tasksheet__7_3D_shapes_2024-25.docx",
+          "MYP3_URBAN_CHANGES__HW1.docx",
+          "MYP3_URBAN_CHANGES__HW1.pdf",
+          "MYP4_Benchmark_Assessment.docx",
+          "MYP4_Biology_Revision-2.docx",
+          "MYP4_Biology_Revision.docx",
+          "MYP4_CRITERE_B_MA_NOUVELLE_MAISON.pdf",
+          "MYP4_Coordinate_Geometry_Activity_with_KSAV_Highlights.docx",
+          "MYP4_Criterion A Appendix.docx.pdf",
+          "MYP4_Extended_Math_SA.docx",
+          "MYP4_Le_monde_de_la_profession_Grammar_Exercises.docx",
+          "MYP4_Phase2_Homework_3.docx",
+          "MYP4_Term1__3_Arithmetic_progression__AP__.docx",
+          "MYP4_Term1___4_Quadratic_sequence___Arithmetic_Series.docx",
+          "MYP4_Term2_Tasksheet___2_Quadratic (1).docx",
+          "MYP4_Term2_Tasksheet___2_Quadratic.docx",
+          "MYP4_Term2_Tasksheet___3_Quadratic_Functions (1).docx",
+          "MYP4_Term2_Tasksheet___3_Quadratic_Functions.docx",
+          "MYP4_W2_September_Homework.docx",
+          "MYP_3_CHEM_TASKSHEET_CRITERION_D.docx",
+          "MYP_3_Test_Specification_Term_1_2024-25.docx__2_.pdf",
+          "MYP_4-Analysis.docx",
+          "MYP_4-Analysis_Revision-2.docx",
+          "MYP_4-Analysis_Revision.docx",
+          "MYP_4HW-2.docx",
+          "MYP_4HW.docx",
+          "MYP_4HW__1_.docx",
+          "MYP_4_Criterion_B_Strand_i_iv_.pdf",
+          "MYP_4_Criterion_D__2_ (1).pdf",
+          "MYP_4_Criterion_D__2_.pdf",
+          "MYP_4_Economic_Agents_HW1.docx.pdf",
+          "MYP_4_Feb__Weelk_1_HW (1).docx",
+          "MYP_4_Feb__Weelk_1_HW.docx",
+          "MYP_4_Gossip_Column.docx",
+          "MYP_4_Gossip_Column__1_.docx",
+          "MYP_4_HW-2.docx",
+          "MYP_4_HW.docx",
+          "MYP_4_Resource_Consumption_HW_1__1_.docx",
+          "MYP_4_Resource_Consumption_HW_1__1_.pdf",
+          "MYP_4_Resource_Consumption_HW_2.pdf",
+          "MYP_4_Resource_Consumption_HW_5__Last_HW_.pdf",
+          "MYP_4_Revision_Worksheet_chemistry.pdf",
+          "MYP_4_Sustainable_Urban_Management_HW1 2.pdf",
+          "MYP_4_Sustainable_Urban_Management_HW1.pdf",
+          "MYP_4_Sustainable_Urban_Management_HW1_2.pdf",
+          "MYP_4_Trade_aid_and_globalisation_HW__1_.docx",
+          "MYP_4_Trade_aid_and_globalisation_HW__1_.pdf",
+          "MYP_4_WEEK_1_PHY_HW.docx",
+          "MYP_4_tasksheet__1_Number_surds__exponents__number_sys__1_.docx",
+          "MYP_First_Term_Report_July_-_December_2024__MYP_3_Goel_Aansh.pdf",
+          "MYP_First_Term_Report_July_-_December_2024__MYP_3_Soman_Uma_Poorva.pdf",
+          "MYP_First_Term_Report_July_-_December_2025__MYP_4_Goel_Aansh.pdf",
+          "MYP_Second_Term_Report_January_-_May_2025__MYP_3_Goel_Aansh.pdf",
+          "MYP_formula_booklet.pdf",
+          "Macro_economic_Agrim_and_Bhuvansh.pdf",
+          "Math_Tasksheet__7.pages",
+          "MineCraft_Task.docx",
+          "Minecraft_Education_1.21.06.0.dmg",
+          "Minecraft_Education_1.21.10.0.dmg",
+          "Mixed_Practice.docx",
+          "Mixed_Practice_Exemplar.docx",
+          "Myp4 Maths Extended Practice.docx",
+          "N23 Extended Mathematics (English).ibassessment",
+          "New_Business_Plan-2.json",
+          "New_Business_Plan.json",
+          "New_Flowchart-2.json",
+          "New_Flowchart.json",
+          "Ollama.app/",
+          "PD Work .docx",
+          "PDF_document.pdf",
+          "PD_Work__4-2.docx",
+          "PD_Work__4.docx",
+          "PETITION TASK.docx",
+          "PV_1_Obs.xlsx",
+          "Passion Project Report.docx",
+          "Periodic Table Notes (1).pdf",
+          "Periodic_Table_Notes__1_.pdf",
+          "Personal Project_Aansh Goel.docx.pdf",
+          "Personal_Project_Aansh_Goel.docx.pdf",
+          "Petition-Scaffolding_Document.pdf",
+          "Phase1 Student Only Document.docx",
+          "Physics_Energy__1_.docx",
+          "Physics_Energy__1_.pdf",
+          "Playground India Educational School.pdf",
+          "Plex Media Server.app/",
+          "Plex.app/",
+          "Pocketpwaa 2025 - Reigniting the Future.docx",
+          "Poster - AI in Investment & Loans (1).png",
+          "Poster - AI in Investment & Loans.png",
+          "Prachita Passport.pdf",
+          "QueueAway - v3.zip",
+          "QueueAway - v3/",
+          "QueueAway-City Clinic.png",
+          "RADSignOn_SignOn_DPS International.pdf",
+          "Random/",
+          "Reactivity_of_elements.pdf",
+          "Risk_of_pH_disbalance_in_human_body.docx",
+          "Rural Wi Fi Project Plan.docx",
+          "Rural_WiFi_Project_Plan.docx",
+          "SA_MYP3_Exploring_Track_and_Field.docx",
+          "SA_PRE-RELEASE.docx",
+          "SFHS Codehack 6.0 INVITE.pdf",
+          "STUDENT HANDBOOK (1).pdf",
+          "Sales Tax and Discount Worksheet.docx",
+          "Sales Tax and Discount Worksheet.pdf",
+          "Sample_Document.pdf",
+          "Scan 2.jpeg",
+          "Scan 3.jpeg",
+          "Scan.jpeg",
+          "Science Term End Assessment.docx",
+          "Screenshot 2025-08-31 at 3.27.19\u202fPM.png",
+          "Screenshot 2025-08-31 at 3.27.40\u202fPM.png",
+          "Screenshot 2025-10-14 at 11.31.12.png",
+          "Service as Action.pptx",
+          "Shapr3D-5.911.0.9224.dmg",
+          "Significant_Figures_practice_questions.pdf",
+          "Soliloquy Practice sheet 2.docx",
+          "StudentOS.zip",
+          "StudentOS_Data_Alex_Student_2025-10-06.json",
+          "StudentOS_Data_Alex_Student_2025-10-27.json",
+          "StudentOS_Data_Alex_Student_2025-11-22.json",
+          "StudentOS_Data_Sarah_School_2025-10-06.json",
+          "StudentOS_Report_Alex_Student_2025-10-20.txt",
+          "StudentOS_Report_Sarah_School_2025-10-06.txt",
+          "StudentOS_admin_parent_patch_2025-11-10/",
+          "Sublime Text.app/",
+          "Summary_Source_1 (1).pdf",
+          "Summary_Source_1.pdf",
+          "Surds__exponents.docx",
+          "Surface area questions.pdf",
+          "Synaptic_plasticity_in_electro-polymerized_PEDOT_b13.pdf",
+          "TASKSHEET BIOFUELS.docx",
+          "TPCASTT_Template.pdf",
+          "TRENDS_IN_PERIODIC_TABLE.docx",
+          "TablePlus.dmg",
+          "Task_2__2_.docx",
+          "Task_2__2_.pages",
+          "Task_Sheet_Criterion_A_C__D__Peace_and_Conflict__1_.pdf",
+          "Task_Sheet_Power_and_Catastrophe_.docx",
+          "Task_Sheet_Power_and_Catastrophe_.pdf",
+          "Tasksheet-FA_Task_2.docx",
+          "Tasksheet-SA_Task_1.docx",
+          "Tasksheet-SA_Task_2.docx",
+          "Tasksheet-SA_Task_3_and_4-2.docx",
+          "Tasksheet-SA_Task_3_and_4.docx",
+          "Tasksheet_T2_-_Criterion_D__MYP_3_.docx",
+          "The_5_Point_Quadratic_Summary_IBmytians.pdf",
+          "The_Job_of_Anubis.docx",
+          "ToC Visa Letter - Aansh Goel.pdf",
+          "Toddle Criteria A and Smart Goal template.pdf",
+          "UN_Cuban_Missile_Crisis_Berlin_Blockade_Darfur_Conflict.docx",
+          "USA VISA DS-160.docx",
+          "Unit_2_Myp4_Practice_sheet__EWHXK1_.pdf",
+          "Universal Niche.pdf",
+          "Universal_Niche_Theory_Final_with_References_Appendices_Index.docx",
+          "Untitled 5.png",
+          "Untitled design (1).png",
+          "Untitled design (2).png",
+          "Untitled design-2.png",
+          "Untitled design-4.png",
+          "Untitled design.png",
+          "Untitled document-2.docx",
+          "Untitled document.docx",
+          "Untitled document.pdf",
+          "Upper_and_Lower_Bounds_Questions.pdf",
+          "VID-20250501-WA0052 (1).mp4",
+          "VID-20250501-WA0055.mp4",
+          "VIS_MA_VIE_d_agent_immobilier.mp4",
+          "VeraFresh Vertical Farming.pdf",
+          "Vertical_Line_test_of_functions.pptx",
+          "Visual Studio Code.app/",
+          "WEEK3_MYP4_BIO_HW___2_-2.docx",
+          "WEEK3_MYP4_BIO_HW___2_.docx",
+          "WEEK9_HW_CHEM__MYP_3_CRITERIAN_B_AND_C-2.docx",
+          "WEEK9_HW_CHEM__MYP_3_CRITERIAN_B_AND_C.docx",
+          "WEEK_5_MYP_4_CHEM_HW-2.docx",
+          "WEEK_5_MYP_4_CHEM_HW.docx",
+          "WEEK_6_MYP_4_HW.docx",
+          "WEEK_7_MYP_4_HW__1___1_.docx",
+          "WEEK_7__MYP_3_Science_Homework__Term-2-2.docx",
+          "WEEK_7__MYP_3_Science_Homework__Term-2.docx",
+          "WEEK_8_MYP_3_Science_Homework__Term-2.docx",
+          "WEEK_8_MYP_4_CHEM_HW__1_.docx",
+          "WEEK_8_MYP_4_CHEM_HW__1_.docx.pdf",
+          "WSC 2025 Certificates Gurgaon Round .pdf",
+          "WSC Kuala Lumpur Global Round 2025 Registration Form.docx",
+          "WSC Tournament of Champions 2025 Registration Form.docx",
+          "Week_1_MYP_4_Physics_HW.docx",
+          "Week_1_MYP_4_Physics_HW.pdf",
+          "Week_2_MYP_4_Chem_HW.docx",
+          "Week_2_MYP_4_Chem_HW.docx.pdf",
+          "What is carbon footprint.docx",
+          "WhatsApp_Image_2025-10-06_at_13.18.54.jpeg",
+          "WhatsApp_Image_2025-10-06_at_13.19.13.jpeg",
+          "Windsurf-darwin-arm64-1.13.12.dmg",
+          "Worksheet_Jan_30th__V2.docx",
+          "World Trade Organization (WTO) .pptx",
+          "X-Plane 12 Installer.app/",
+          "_Digital_Design_MYP_3_Term_2.docx",
+          "_MYP4_Term1__12__Coordinate_Geo__.docx",
+          "_MYP4_Term2_Tasksheet___1_Quadratic_Formula.docx",
+          "_PP Orientation Dec 2025.pdf",
+          "_Persephone.pdf",
+          "backyard-nature-14737.mp3",
+          "beach-waves-04-6328.mp3",
+          "business-plan-2.txt",
+          "business-plan.txt",
+          "city-skyline-dark-mode-best-most-popular-free-download-wallpapers-for-macbook-pro-and-macbook-air-and-microsoft-windows-desktop-pcs-4k-07-12-2024-1733638502-hd-wallpaper.webp",
+          "cropped_bedroom_washroom.pdf",
+          "economics_paper_3_practice.docx",
+          "energies-v17-i23_20251231 (1).bib",
+          "energies-v17-i23_20251231.bib",
+          "explosion-fx-343683.mp3",
+          "fenrg-9-789316 (1).epub",
+          "fenrg-9-789316.epub",
+          "fire-sounds-356121.mp3",
+          "flowchart-2.svg",
+          "flowchart.svg",
+          "forest-fire-355437.mp3",
+          "gesture-to-text-translator.zip",
+          "gesture-to-text-translator/",
+          "hello.py",
+          "how-would-full-power-tanjiro-rank-as-a-hashira-v0-wkhwv0vauybb1.png.webp",
+          "i&s and eco sa.pdf",
+          "icons8-spotify-badges.zip",
+          "icons8-spotify-badges/",
+          "image-removebg-preview (1).png",
+          "image-removebg-preview.png",
+          "intechhelically_coiled_heat_exchangers (1).pdf",
+          "intechhelically_coiled_heat_exchangers.pdf",
+          "item-guardian-ai-main 2.zip",
+          "item-guardian-ai-main.zip",
+          "item-guardian-ai-main/",
+          "latex (1).txt",
+          "latex.txt",
+          "menu-data-2026-02-11.json",
+          "ms3-quadratic-book.pdf",
+          "mysql-workbench-community-8.0.41-macos-x86_64.dmg",
+          "oxford_Linear_programming.pdf",
+          "panneaux-solaires-1000x600.jpg",
+          "paper_2_practice.docx",
+          "protest-chant-fx-32235.mp3",
+          "quadratic equations word problems.docx",
+          "relations_functions_domain_range.pdf",
+          "relax-piano-268564.mp3",
+          "relax-piano-end-268565.mp3",
+          "resources-13.tar",
+          "resources-13/",
+          "scholar.bib",
+          "scholar.txt",
+          "sign-on-isl-bridge-main/",
+          "sign-on-isl-bridge.zip",
+          "sign-on-isl-bridge/",
+          "signature.png",
+          "signout",
+          "soldier-from-call-of-duty.3840x2160.mp4",
+          "steam.dmg",
+          "stitched_room_overview.jpg",
+          "subtitlE (1).png",
+          "subtitlE.pdf",
+          "subtitlE.png",
+          "surds-questions.docx",
+          "the-cloud-factory-34523.mp3",
+          "tornado-sound-better-quality-68141.mp3",
+          "tulip-purple-floorplan-4bhk-2400.pdf",
+          "uber-pitch-deck-2.pdf",
+          "uber-pitch-deck-3.pdf",
+          "uber-pitch-deck-4.pdf",
+          "uber-pitch-deck-5.pdf",
+          "uber-pitch-deck-6.pdf",
+          "uber-pitch-deck-7.pdf",
+          "uber-pitch-deck.pdf",
+          "uber-pitch-deck.pptx",
+          "upscalemedia-transformed (1).jpeg",
+          "vecteezy_drops-of-rain-with-green-tree-nature-background-romantic_10876623.mp4",
+          "vecteezy_green-simple-nature-slomo-view_38999617.mp4",
+          "vecteezy_purple-cosmos-flowers-garden-nature-flowers-background_8023459.mov",
+          "~$ Documentation.docx",
+          "~$P4_Term2_Tasksheet___2_Quadratic.docx",
+          "~$P_4_Gossip_Column.docx",
+          "~$P_4_HW.docx",
+          "~$ptember Activity.docx",
+          "~$ssip_Column_Checklist.docx",
+          "\u2709\ufe0f Writing Tasks .docx",
+          "\ud83c\udfa4 The Word & Doodle Relay.pdf",
+          "\ud83e\uddea MYP 3 TERM.docx"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:21:16.426515",
+      "input": "open my last opened tab on safari",
+      "intent": {
+        "action": "safari_control",
+        "target": "open_last_tab",
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": null
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": false,
+        "error": "Timeout in Safari control"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:21:29.799578",
+      "input": "open my last opened tab on safari",
+      "intent": {
+        "action": "safari_control",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": "open_last_tab",
+          "app": null
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": false,
+        "error": "Unknown Safari control action: open_last_tab"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:22:02.039517",
+      "input": "open my last opened tab on safari",
+      "intent": {
+        "action": "safari_control",
+        "target": "open_last_tab",
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": null
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": false,
+        "error": "Safari control failed: 196:228: execution error: System Events got an error: osascript is not allowed to send keystrokes. (1002)\n"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:22:26.091951",
+      "input": "pen my last opened tab on safari",
+      "intent": {
+        "action": "safari_control",
+        "target": "last_tab",
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": null
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Safari control executed: reopen_last_tab"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:22:45.907954",
+      "input": "reopen last tab",
+      "intent": {
+        "action": "safari_control",
+        "target": "reopen_last_tab",
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": null
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Safari control executed: reopen_last_tab"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:26:14.488632",
+      "input": "create a folder name test on desktop",
+      "intent": {
+        "action": "create_folder",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": "~/Desktop",
+          "name": "test",
+          "query": null,
+          "content": null,
+          "app": null
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Created folder: /Users/aanshgoel/Desktop"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:28:27.221798",
+      "input": "split screen safari and notes",
+      "intent": {
+        "action": "split_screen",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": "Safari,Notes"
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": false,
+        "error": "Failed to split screen: 48:56: execution error: Can\u2019t get application \"Safari,Notes\". (-1728)\n"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:28:35.900614",
+      "input": "open note",
+      "intent": {
+        "action": "open_app",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": "Notes"
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Opened Notes"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:30:12.947760",
+      "input": "split screen safari and notes",
+      "intent": {
+        "action": "split_screen",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": "Safari,Notes"
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": false,
+        "error": "Failed to split screen: 174:208: execution error: System Events got an error: Can\u2019t get window 1 of process \"Safari\". Invalid index. (-1719)\n"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:30:47.690186",
+      "input": "split screen safari and notes",
+      "intent": {
+        "action": "split_screen",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": "Safari, Notes"
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Split screen Safari and Notes"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:32:18.059405",
+      "input": "split screen safari and notes",
+      "intent": {
+        "action": "split_screen",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": "Safari,Notes"
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Split screen Safari and Notes"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:32:29.849274",
+      "input": "split screen safari and notes",
+      "intent": {
+        "action": "split_screen",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": "Safari,Notes"
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Split screen Safari and Notes"
+      }
+    },
+    {
+      "timestamp": "2026-02-18T23:32:38.403765",
+      "input": "open safari",
+      "intent": {
+        "action": "open_app",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": "Safari"
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Opened Safari"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T20:58:51.549368",
+      "input": "open notes",
+      "intent": {
+        "action": "open_app",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": "Notes"
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Opened Notes"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T20:59:08.611317",
+      "input": "split screen notes and safari",
+      "intent": {
+        "action": "split_screen",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": null
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": false,
+        "error": "Execution error: argument of type 'NoneType' is not iterable"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T20:59:27.228349",
+      "input": "split screen safari and notes",
+      "intent": {
+        "action": "split_screen",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": "Safari,Notes"
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Split screen Safari and Notes"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T21:02:41.344411",
+      "input": "split screen safari and notes",
+      "intent": {
+        "action": "split_screen",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": "Safari and Notes"
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Split screen Safari and Notes"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T21:06:00.951154",
+      "input": "Split screen Safari and Notes",
+      "intent": {
+        "action": "split_screen",
+        "target": null,
+        "parameters": {
+          "url": null,
+          "path": null,
+          "name": null,
+          "query": null,
+          "content": null,
+          "app": "Safari, Notes"
+        },
+        "requires_confirmation": false
+      },
+      "result": {
+        "success": true,
+        "message": "Split screen Safari and Notes"
+      }
+    }
+  ],
+  "frequent_apps": {
+    "Safari": 4,
+    "Notes": 2
+  },
+  "recent_folders": [
+    "~/Downloads",
+    "~/Desktop"
+  ],
+  "stats": {
+    "total_commands": 34,
+    "successful_commands": 25,
+    "failed_commands": 9
+  },
+  "tasks": [],
+  "deadlines": [],
+  "recent_files": [],
+  "behavior_patterns": {},
+  "preferences": {},
+  "commands": [
+    {
+      "timestamp": "2026-02-26T13:31:29.658902",
+      "input": "Search pneumonoultramicroscopicsilicovolcanoconiosis on safari",
+      "intent": {
+        "mode": "command",
+        "actions": [
+          {
+            "action": "safari_control",
+            "target": null,
+            "parameters": {
+              "query": "pneumonoultramicroscopicsilicovolcanoconiosis"
+            }
+          }
+        ]
+      },
+      "result": {
+        "success": true,
+        "message": "Successfully executed 1 actions",
+        "results": [
+          {
+            "success": true,
+            "message": "Safari control executed: reopen_last_tab"
+          }
+        ]
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-02-26T13:31:38.930349",
+      "input": "open safari",
+      "intent": {
+        "mode": "command",
+        "actions": [
+          {
+            "action": "open_app",
+            "target": "Safari",
+            "parameters": {
+              "app": "Safari"
+            },
+            "requires_confirmation": false
+          }
+        ]
+      },
+      "result": {
+        "success": true,
+        "message": "Successfully executed 1 actions",
+        "results": [
+          {
+            "success": true,
+            "message": "Focused Safari"
+          }
+        ]
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-02-26T13:31:57.654633",
+      "input": "volume up",
+      "intent": {
+        "mode": "command",
+        "actions": [
+          {
+            "action": "volume_control",
+            "target": null,
+            "parameters": {
+              "operation": "increase",
+              "increment": 5
+            },
+            "requires_confirmation": false
+          }
+        ]
+      },
+      "result": {
+        "success": false,
+        "error": "Action 1 failed: Unknown volume action: set",
+        "completed_actions": [],
+        "failed_action": {
+          "success": false,
+          "error": "Unknown volume action: set"
+        }
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-02-26T13:32:19.302141",
+      "input": "volume up",
+      "intent": {
+        "mode": "command",
+        "actions": [
+          {
+            "action": "volume_control",
+            "target": null,
+            "parameters": {
+              "operation": "increase",
+              "increment": 5
+            },
+            "requires_confirmation": false
+          }
+        ]
+      },
+      "result": {
+        "success": true,
+        "message": "Successfully executed 1 actions",
+        "results": [
+          {
+            "success": true,
+            "message": "Volume up"
+          }
+        ]
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-02-26T13:33:10.663881",
+      "input": "create folder named Test on Desktop",
+      "intent": {
+        "mode": "command",
+        "actions": [
+          {
+            "action": "create_folder",
+            "target": "Desktop",
+            "parameters": {
+              "name": "Test"
+            },
+            "requires_confirmation": false
+          }
+        ]
+      },
+      "result": {
+        "success": false,
+        "error": "Action 1 failed: Failed to create folder: expected str, bytes or os.PathLike object, not NoneType",
+        "completed_actions": [],
+        "failed_action": {
+          "success": false,
+          "error": "Failed to create folder: expected str, bytes or os.PathLike object, not NoneType"
+        }
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-02-26T13:34:45.645587",
+      "input": "create folder named Test on Desktop",
+      "intent": {
+        "mode": "command",
+        "actions": [
+          {
+            "action": "create_folder",
+            "target": null,
+            "parameters": {
+              "path": "/Users/aanshgoel/Desktop/Test",
+              "name": "Test"
+            },
+            "requires_confirmation": false
+          }
+        ]
+      },
+      "result": {
+        "success": true,
+        "message": "Successfully executed 1 actions",
+        "results": [
+          {
+            "success": true,
+            "message": "Created folder: /Users/aanshgoel/Desktop/Test/Test"
+          }
+        ]
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-02-26T13:35:39.001624",
+      "input": "splitscreen notes and safari",
+      "intent": {
+        "mode": "command",
+        "actions": [
+          {
+            "action": "split_screen",
+            "target": null,
+            "parameters": {
+              "apps": [
+                "Notes",
+                "Safari"
+              ]
+            },
+            "requires_confirmation": false
+          }
+        ]
+      },
+      "result": {
+        "success": true,
+        "message": "Successfully executed 1 actions",
+        "results": [
+          {
+            "success": true,
+            "message": "Split screen Notes and Safari (manual positioning)"
+          }
+        ]
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-02-26T13:36:17.103176",
+      "input": "split screen notes and safari",
+      "intent": {
+        "mode": "command",
+        "actions": [
+          {
+            "action": "split_screen",
+            "target": null,
+            "parameters": {
+              "apps": [
+                "Notes",
+                "Safari"
+              ]
+            },
+            "requires_confirmation": false
+          }
+        ]
+      },
+      "result": {
+        "success": true,
+        "message": "Successfully executed 1 actions",
+        "results": [
+          {
+            "success": true,
+            "message": "Split screen Notes and Safari (manual positioning)"
+          }
+        ]
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-02T15:45:31.815681",
+      "input": "delete the agent_test_dir from the folder...",
+      "intent": {
+        "mode": "command",
+        "actions": [
+          {
+            "action": "delete_file",
+            "target": "agent_test_dir",
+            "parameters": {
+              "path": "agent_test_dir"
+            },
+            "requires_confirmation": true
+          }
+        ]
+      },
+      "result": {
+        "success": true,
+        "message": "Successfully executed 1 actions",
+        "results": [
+          {
+            "success": true,
+            "message": "Moved to trash: agent_test_dir"
+          }
+        ]
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-02T15:45:53.539169",
+      "input": "splitscreen chatgpt atlas and antigravity",
+      "intent": {
+        "mode": "command",
+        "actions": [
+          {
+            "action": "split_screen",
+            "target": null,
+            "parameters": {
+              "apps": [
+                "ChatGPT",
+                "Atlas",
+                "AntiGravity"
+              ]
+            },
+            "requires_confirmation": false
+          }
+        ]
+      },
+      "result": {
+        "success": false,
+        "error": "Action 1 failed: Failed to launch apps: 43:49: execution error: File ChatGPT wasn\u2019t found. (-43)\n",
+        "completed_actions": [],
+        "failed_action": {
+          "success": false,
+          "error": "Failed to launch apps: 43:49: execution error: File ChatGPT wasn\u2019t found. (-43)\n"
+        }
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-02T15:53:00.822432",
+      "input": "bye",
+      "intent": {
+        "mode": "command",
+        "actions": [
+          {
+            "action": "close_app",
+            "target": null,
+            "parameters": {
+              "app": "Teni"
+            },
+            "requires_confirmation": false
+          }
+        ]
+      },
+      "result": {
+        "success": true,
+        "message": "Successfully executed 1 actions",
+        "results": [
+          {
+            "success": true,
+            "message": "Closed Teni"
+          }
+        ]
+      },
+      "success": true
+    }
+  ],
+  "long_term_insights": []
+}

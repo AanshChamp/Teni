@@ -1,0 +1,43 @@
+2026-02-19 08:07:59,361 - INFO - [ROUTER] → conversation mode
+2026-02-19 20:58:45,237 - INFO - [ROUTER] → command mode
+2026-02-19 20:58:51,552 - INFO - Input: open notes
+2026-02-19 20:58:51,552 - INFO - Intent: {'action': 'open_app', 'target': None, 'parameters': {'url': None, 'path': None, 'name': None, 'query': None, 'content': None, 'app': 'Notes'}, 'requires_confirmation': False}
+2026-02-19 20:58:51,552 - INFO - Result: {'success': True, 'message': 'Opened Notes'}
+2026-02-19 20:58:51,552 - INFO - Command executed successfully
+2026-02-19 20:59:08,610 - INFO - [ROUTER] → command mode
+2026-02-19 20:59:08,612 - INFO - Input: split screen notes and safari
+2026-02-19 20:59:08,613 - INFO - Intent: {'action': 'split_screen', 'target': None, 'parameters': {'url': None, 'path': None, 'name': None, 'query': None, 'content': None, 'app': None}, 'requires_confirmation': False}
+2026-02-19 20:59:08,613 - INFO - Result: {'success': False, 'error': "Execution error: argument of type 'NoneType' is not iterable"}
+2026-02-19 20:59:08,613 - ERROR - Command failed: Execution error: argument of type 'NoneType' is not iterable
+2026-02-19 20:59:19,273 - INFO - [ROUTER] → command mode
+2026-02-19 20:59:27,230 - INFO - Input: split screen safari and notes
+2026-02-19 20:59:27,230 - INFO - Intent: {'action': 'split_screen', 'target': None, 'parameters': {'url': None, 'path': None, 'name': None, 'query': None, 'content': None, 'app': 'Safari,Notes'}, 'requires_confirmation': False}
+2026-02-19 20:59:27,230 - INFO - Result: {'success': True, 'message': 'Split screen Safari and Notes'}
+2026-02-19 20:59:27,230 - INFO - Command executed successfully
+2026-02-19 21:02:28,641 - INFO - [ROUTER] → command mode
+2026-02-19 21:02:41,347 - INFO - Input: split screen safari and notes
+2026-02-19 21:02:41,348 - INFO - Intent: {'action': 'split_screen', 'target': None, 'parameters': {'url': None, 'path': None, 'name': None, 'query': None, 'content': None, 'app': 'Safari and Notes'}, 'requires_confirmation': False}
+2026-02-19 21:02:41,348 - INFO - Result: {'success': True, 'message': 'Split screen Safari and Notes'}
+2026-02-19 21:02:41,348 - INFO - Command executed successfully
+2026-02-19 21:05:48,394 - INFO - [ROUTER] → command mode
+2026-02-19 21:06:00,953 - INFO - Input: Split screen Safari and Notes
+2026-02-19 21:06:00,954 - INFO - Intent: {'action': 'split_screen', 'target': None, 'parameters': {'url': None, 'path': None, 'name': None, 'query': None, 'content': None, 'app': 'Safari, Notes'}, 'requires_confirmation': False}
+2026-02-19 21:06:00,954 - INFO - Result: {'success': True, 'message': 'Split screen Safari and Notes'}
+2026-02-19 21:06:00,954 - INFO - Command executed successfully
+2026-02-19 21:08:28,143 - INFO - [ROUTER] → conversation mode
+2026-02-19 21:27:44,560 - INFO - [ROUTER] → conversation mode
+2026-02-19 21:28:11,285 - INFO - [ROUTER] → conversation mode
+2026-02-19 21:28:25,289 - ERROR - Unexpected error: 'most_used_actions'
+2026-02-19 21:28:56,547 - INFO - [ROUTER] → command mode
+2026-02-19 21:28:56,879 - ERROR - Unexpected error: 'most_used_actions'
+2026-02-19 21:29:09,189 - INFO - [ROUTER] → conversation mode
+2026-02-19 21:29:18,928 - INFO - [ROUTER] → conversation mode
+2026-02-19 22:01:38,157 - INFO - [ROUTER] → command mode
+2026-02-19 22:01:38,158 - INFO - [ROUTER] → conversation mode
+2026-02-19 22:16:33,456 - INFO - [ROUTER] → command mode
+2026-02-19 22:16:33,457 - INFO - [ROUTER] → conversation mode
+2026-02-19 22:31:45,333 - ERROR - Unexpected error: 'LLMClient' object has no attribute 'parse_intent'
+2026-02-19 22:45:09,773 - INFO - [ROUTER] → conversation mode
+2026-02-19 22:48:19,398 - INFO - [ROUTER] → conversation mode
+2026-02-19 22:48:42,489 - INFO - [ROUTER] → conversation mode
+2026-02-19 22:50:35,436 - INFO - [ROUTER] → conversation mode

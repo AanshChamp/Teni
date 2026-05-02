@@ -1,0 +1,33 @@
+2026-05-02 15:39:52,066 - INFO - [ROUTER] → agent_loop mode
+2026-05-02 15:40:26,531 - INFO - [ROUTER] → agent_loop mode
+2026-05-02 15:45:09,458 - INFO - [ROUTER] → conversation mode
+2026-05-02 15:45:27,574 - INFO - [ROUTER] → command mode
+2026-05-02 15:45:31,817 - INFO - Input: delete the agent_test_dir from the folder...
+2026-05-02 15:45:31,817 - INFO - Intent: {'mode': 'command', 'actions': [{'action': 'delete_file', 'target': 'agent_test_dir', 'parameters': {'path': 'agent_test_dir'}, 'requires_confirmation': True}]}
+2026-05-02 15:45:31,817 - INFO - Result: {'success': True, 'message': 'Successfully executed 1 actions', 'results': [{'success': True, 'message': 'Moved to trash: agent_test_dir'}]}
+2026-05-02 15:45:31,817 - INFO - Command executed successfully
+2026-05-02 15:45:53,174 - INFO - [ROUTER] → command mode
+2026-05-02 15:45:53,540 - INFO - Input: splitscreen chatgpt atlas and antigravity
+2026-05-02 15:45:53,541 - INFO - Intent: {'mode': 'command', 'actions': [{'action': 'split_screen', 'target': None, 'parameters': {'apps': ['ChatGPT', 'Atlas', 'AntiGravity']}, 'requires_confirmation': False}]}
+2026-05-02 15:45:53,541 - INFO - Result: {'success': False, 'error': 'Action 1 failed: Failed to launch apps: 43:49: execution error: File ChatGPT wasn’t found. (-43)\n', 'completed_actions': [], 'failed_action': {'success': False, 'error': 'Failed to launch apps: 43:49: execution error: File ChatGPT wasn’t found. (-43)\n'}}
+2026-05-02 15:45:53,541 - ERROR - Command failed: Action 1 failed: Failed to launch apps: 43:49: execution error: File ChatGPT wasn’t found. (-43)
+
+2026-05-02 15:47:16,938 - INFO - [ROUTER] → conversation mode
+2026-05-02 15:50:10,629 - INFO - [ROUTER] → conversation mode
+2026-05-02 15:52:19,917 - ERROR - Unexpected error: 'most_used_actions'
+2026-05-02 15:53:00,623 - INFO - [ROUTER] → command mode
+2026-05-02 15:53:00,824 - INFO - Input: bye
+2026-05-02 15:53:00,824 - INFO - Intent: {'mode': 'command', 'actions': [{'action': 'close_app', 'target': None, 'parameters': {'app': 'Teni'}, 'requires_confirmation': False}]}
+2026-05-02 15:53:00,824 - INFO - Result: {'success': True, 'message': 'Successfully executed 1 actions', 'results': [{'success': True, 'message': 'Closed Teni'}]}
+2026-05-02 15:53:00,824 - INFO - Command executed successfully
+2026-05-02 17:02:57,769 - INFO - [ROUTER] → conversation mode
+2026-05-02 17:47:09,350 - INFO - [ROUTER] → conversation mode
+2026-05-02 17:48:49,311 - INFO - [ROUTER] → conversation mode
+2026-05-02 17:49:11,968 - INFO - [ROUTER] → command mode
+2026-05-02 17:49:49,226 - INFO - [ROUTER] → command mode
+2026-05-02 17:50:02,845 - INFO - [ROUTER] → conversation mode
+2026-05-02 17:50:20,262 - INFO - [ROUTER] → conversation mode
+2026-05-02 17:53:34,129 - INFO - [ROUTER] → conversation mode
+2026-05-02 17:53:55,089 - INFO - [ROUTER] → conversation mode
+2026-05-02 17:54:00,312 - INFO - [ROUTER] → conversation mode
+2026-05-02 17:54:10,143 - INFO - [ROUTER] → conversation mode
